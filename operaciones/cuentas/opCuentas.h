@@ -1,0 +1,1 @@
+int opInicializarCuentas(int vClientes, int idClientes[vClientes], int cuentas[300]);

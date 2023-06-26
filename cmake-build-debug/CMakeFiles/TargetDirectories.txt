@@ -1,0 +1,3 @@
+C:/Users/Usuario/Escritorio/TP FINAL/cmake-build-debug/CMakeFiles/TP_FINAL.dir
+C:/Users/Usuario/Escritorio/TP FINAL/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Usuario/Escritorio/TP FINAL/cmake-build-debug/CMakeFiles/rebuild_cache.dir
