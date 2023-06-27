@@ -6,10 +6,10 @@
 #include "../../utils/gotoxy.h"
 #include "../../operaciones/clientes/opClientes.h"
 
-#define BREADCRUMB_BUSCAR       " :   Buscar   :   Ingrese un numero de cliente para buscar   : "
-#define BREADCRUMB_ACTUALIZAR   " : Actualizar : Ingrese un numero de cliente para actualizar : "
-#define BREADCRUMB_ELIMINAR     " :  Eliminar  :   Ingrese un numero de cliente para borrar   : "
-#define MENSAJE_NO_ENCONTRADO   "No se encontro un cliente ascoiado a dicho numero de cuenta."
+#define BREADCRUMB_BUSCAR       "CLIENTES : Buscar     :Ingrese un numero de cliente para buscar     : "
+#define BREADCRUMB_ACTUALIZAR   "CLIENTES : Actualizar :Ingrese un numero de cliente para actualizar : "
+#define BREADCRUMB_ELIMINAR     "CLIENTES : Eliminar   :Ingrese un numero de cliente para borrar     : "
+#define MENSAJE_NO_ENCONTRADO   "No se encontro un cliente ascoiado a dicho numero de cliente."
 #define MENSAJE_ERROR           "Error desconocido."
 #define PAGINA_ANTERIOR         "<-- Pagina Anterior"
 #define PAGINA_SIGUIENTE        "Pagina Siguiente -->"
@@ -21,8 +21,8 @@ int navegarMenuClientes() {
     return navegarMenu(posiciones, 5, ESCAPE);
 }
 
-int menuIngresarCliente(char nombre[], char apellido[], char dni[], char email[], char domicilio[], char telefono[], int x,
-                    int y, int pasoSiguiente) {
+int menuIngresarCliente(char nombre[], char apellido[], char dni[], char email[], char domicilio[], char telefono[],
+                        int x, int y, int pasoSiguiente) {
     int paso = 1;
     while (paso != ESCAPE && paso != 13) {
         switch (paso) {
@@ -170,15 +170,15 @@ int obtenerNroCliente(int arrayNroCliente[]) {
 
 int menuIngresarNroCliente(int arrayNroCliente[], int status, char breadcrumb[]) {
     if (status == 200) {
-        gotoxy(23, 2);
-        printf("%-80s", breadcrumb);
-        gotoxy(whereX() - 17, whereY());
+        gotoxy(14, 2);
+        printf("%-81s", breadcrumb);
+        gotoxy(whereX() - 11, whereY());
     } else {
-        gotoxy(86, 2);
-        printf("%9s", " ");
-        gotoxy(25, 3);
+        gotoxy(whereX()-8, 2);
+        printf("%8s", " ");
+        gotoxy(14, 3);
         printf("%-64s", status == 404 ? MENSAJE_NO_ENCONTRADO : MENSAJE_ERROR);
-        gotoxy(77, 2);
+        gotoxy(84, 2);
     }
     return obtenerNroCliente(arrayNroCliente);
 }
@@ -312,10 +312,10 @@ int menuActualizarCliente() {
                 opcion = menuIngresarCliente(nombre, apellido, dni, email, domicilio, telefono, 60, 13, 3);
                 break;
             case 404:
-                opcion = menuIngresarNroCliente(arrayNroCliente,404,BREADCRUMB_ACTUALIZAR);
+                opcion = menuIngresarNroCliente(arrayNroCliente, 404, BREADCRUMB_ACTUALIZAR);
                 break;
             case 500:
-                opcion = menuIngresarNroCliente(arrayNroCliente,500,BREADCRUMB_ACTUALIZAR);
+                opcion = menuIngresarNroCliente(arrayNroCliente, 500, BREADCRUMB_ACTUALIZAR);
                 break;
             case 3:
                 opcion = opActualizarCliente(cliente, nombre, apellido, dni, email, domicilio, telefono);
@@ -334,13 +334,11 @@ int menuActualizarCliente() {
 
 int menuBorrarCliente() {
     int arrayNroCliente[8];
-    stResultadoClientes resultado;
-    stCliente cliente;
     int opcion = 0;
     while (opcion != ESCAPE) {
         switch (opcion) {
             case 0:
-                opcion = menuIngresarNroCliente(arrayNroCliente,200,BREADCRUMB_ELIMINAR);
+                opcion = menuIngresarNroCliente(arrayNroCliente, 200, BREADCRUMB_ELIMINAR);
                 break;
             case 1:
                 opcion = opBorrarCliente(arrayNroCliente);
@@ -352,10 +350,10 @@ int menuBorrarCliente() {
                 getch();
                 break;
             case 404:
-                opcion = menuIngresarNroCliente(arrayNroCliente,404,BREADCRUMB_ELIMINAR);
+                opcion = menuIngresarNroCliente(arrayNroCliente, 404, BREADCRUMB_ELIMINAR);
                 break;
             case 500:
-                opcion = menuIngresarNroCliente(arrayNroCliente,500,BREADCRUMB_ELIMINAR);
+                opcion = menuIngresarNroCliente(arrayNroCliente, 500, BREADCRUMB_ELIMINAR);
                 break;
         }
     }

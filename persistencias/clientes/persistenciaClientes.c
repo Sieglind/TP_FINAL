@@ -13,7 +13,7 @@ int persistirClientesIniciales(int vClientes, stCliente clientes[vClientes]) {
     return result;
 }
 
-int obtenerNuevoId() {
+int obtenerNuevoIdCliente() {
     struct stat status;
     if (stat(ARCHIVO_CLIENTES, &status) == 0) {
         return status.st_size / sizeof(stCliente);
@@ -53,10 +53,10 @@ int persistirClienteNuevo(stCliente cliente) {
     } else return 500;
 }
 
-stCliente implementarBusquedaInt(FILE *archvo, int nroCliente) {
+stCliente implementarBusquedaInt(FILE *archivo, int nroCliente) {
     stCliente cliente;
     int encontrado = 0;
-    while (encontrado == 0 && fread(&cliente, sizeof(stCliente), 1, archvo) == 1) {
+    while (encontrado == 0 && fread(&cliente, sizeof(stCliente), 1, archivo) == 1) {
         if (cliente.nroCliente == nroCliente && cliente.eliminado == 0) encontrado = 1;
     }
     if (encontrado == 0) cliente.id = -1;
@@ -87,7 +87,7 @@ stResultadoClientes buscarClientePorNroCliente(int nroCliente) {
 
 stResultadoClientes listarClientes() {
     stResultadoClientes resultado;
-    int cantidad = obtenerNuevoId();
+    int cantidad = obtenerNuevoIdCliente();
     if (cantidad != 0) {
         FILE *archivo = fopen(ARCHIVO_CLIENTES, "rb");
         if (archivo) {
@@ -125,7 +125,7 @@ int persistirActualizacion(stCliente cliente) {
     }
 }
 
-int persistirEliminado(int nroCliente) {
+int persistirClienteEliminado(int nroCliente) {
     FILE *archivo = fopen(ARCHIVO_CLIENTES, "r+b");
     if (archivo) {
         stCliente cliente = implementarBusquedaInt(archivo, nroCliente);

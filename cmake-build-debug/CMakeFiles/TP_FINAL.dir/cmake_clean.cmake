@@ -1,0 +1,43 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/TP_FINAL.dir/interfaces/interfaces.c.obj"
+  "CMakeFiles/TP_FINAL.dir/interfaces/interfaces.c.obj.d"
+  "CMakeFiles/TP_FINAL.dir/main.c.obj"
+  "CMakeFiles/TP_FINAL.dir/main.c.obj.d"
+  "CMakeFiles/TP_FINAL.dir/menues/clientes/menuClientes.c.obj"
+  "CMakeFiles/TP_FINAL.dir/menues/clientes/menuClientes.c.obj.d"
+  "CMakeFiles/TP_FINAL.dir/menues/cuentas/menuCuentas.c.obj"
+  "CMakeFiles/TP_FINAL.dir/menues/cuentas/menuCuentas.c.obj.d"
+  "CMakeFiles/TP_FINAL.dir/menues/menu.c.obj"
+  "CMakeFiles/TP_FINAL.dir/menues/menu.c.obj.d"
+  "CMakeFiles/TP_FINAL.dir/menues/movimientos/menuMovimientos.c.obj"
+  "CMakeFiles/TP_FINAL.dir/menues/movimientos/menuMovimientos.c.obj.d"
+  "CMakeFiles/TP_FINAL.dir/menues/navegacion/navegacion.c.obj"
+  "CMakeFiles/TP_FINAL.dir/menues/navegacion/navegacion.c.obj.d"
+  "CMakeFiles/TP_FINAL.dir/menues/otros/menuOtros.c.obj"
+  "CMakeFiles/TP_FINAL.dir/menues/otros/menuOtros.c.obj.d"
+  "CMakeFiles/TP_FINAL.dir/operaciones/clientes/opClientes.c.obj"
+  "CMakeFiles/TP_FINAL.dir/operaciones/clientes/opClientes.c.obj.d"
+  "CMakeFiles/TP_FINAL.dir/operaciones/cuentas/opCuentas.c.obj"
+  "CMakeFiles/TP_FINAL.dir/operaciones/cuentas/opCuentas.c.obj.d"
+  "CMakeFiles/TP_FINAL.dir/operaciones/movimientos/opMovimientos.c.obj"
+  "CMakeFiles/TP_FINAL.dir/operaciones/movimientos/opMovimientos.c.obj.d"
+  "CMakeFiles/TP_FINAL.dir/operaciones/otros/otros.c.obj"
+  "CMakeFiles/TP_FINAL.dir/operaciones/otros/otros.c.obj.d"
+  "CMakeFiles/TP_FINAL.dir/persistencias/clientes/persistenciaClientes.c.obj"
+  "CMakeFiles/TP_FINAL.dir/persistencias/clientes/persistenciaClientes.c.obj.d"
+  "CMakeFiles/TP_FINAL.dir/persistencias/cuentas/persistenciaCuentas.c.obj"
+  "CMakeFiles/TP_FINAL.dir/persistencias/cuentas/persistenciaCuentas.c.obj.d"
+  "CMakeFiles/TP_FINAL.dir/persistencias/movimientos/persistenciaMovimientos.c.obj"
+  "CMakeFiles/TP_FINAL.dir/persistencias/movimientos/persistenciaMovimientos.c.obj.d"
+  "CMakeFiles/TP_FINAL.dir/utils/gotoxy.c.obj"
+  "CMakeFiles/TP_FINAL.dir/utils/gotoxy.c.obj.d"
+  "TP_FINAL.exe"
+  "TP_FINAL.exe.manifest"
+  "TP_FINAL.pdb"
+  "libTP_FINAL.dll.a"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang C)
+  include(CMakeFiles/TP_FINAL.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

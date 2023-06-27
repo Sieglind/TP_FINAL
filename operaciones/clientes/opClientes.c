@@ -158,7 +158,7 @@ int opValidarDireccion(char direccion[]) {
 
 int opGuardarNuevoCliente(char nombre[], char apellido[], char dni[], char email[], char domicilio[], char telefono[]) {
     stCliente cliente;
-    cliente.id = obtenerNuevoId();
+    cliente.id = obtenerNuevoIdCliente();
     if (cliente.id != -1) {
         cliente.nroCliente = ID_INICIAL_CLIENTES + cliente.id;
         strcpy(cliente.nombre, nombre);
@@ -204,6 +204,6 @@ int opActualizarCliente(stCliente cliente,
 }
 
 int opBorrarCliente(int arrayNroCliente[]){
-    int nroCliente = convertirNroCuentaArrayAInt(arrayNroCliente);
-    return persistirEliminado(nroCliente);
+    int nroCliente =(int) convertirNroCuentaArrayAInt(arrayNroCliente);
+    return persistirClienteEliminado(nroCliente);
 }

@@ -24,7 +24,7 @@ typedef struct {
 
 int persistirClientesIniciales(int vClientes, stCliente clientes[vClientes]);
 
-int obtenerNuevoId();
+int obtenerNuevoIdCliente();
 
 int persistirClienteNuevo(stCliente cliente);
 
@@ -34,4 +34,4 @@ stResultadoClientes listarClientes();
 
 int persistirActualizacion(stCliente cliente);
 
-int persistirEliminado(int nroCliente);
+int persistirClienteEliminado(int nroCliente);

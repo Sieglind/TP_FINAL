@@ -20,3 +20,13 @@ typedef struct {
 } stResultadoCuentas;
 
 int persistirCuentasIniciales(int vCuentas,stCuenta cuentas[vCuentas]);
+
+int obtenerNuevoIdCuenta();
+
+int persistirCuentaNueva(stCuenta cuenta);
+
+stResultadoCuentas buscarCuentasPorIdCliente(int idCliente);
+
+stResultadoCuentas listarCuentas();
+
+int persistirCuentaEliminada(int idCliente);
