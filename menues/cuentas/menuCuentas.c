@@ -159,6 +159,7 @@ int menuBuscarCuentas() {
                 break;
             case 200:
                 opcion = menuResultadoCuentas(resultado);
+                free(resultado.resultados);
                 break;
             case 404:
                 opcion = menuIngresarIdCliente(arrayIdCliente, 404, BREADCRUMB_BUSCAR);
@@ -168,7 +169,6 @@ int menuBuscarCuentas() {
                 break;
         }
     }
-    free(resultado.resultados);
     return 0;
 }
 
@@ -177,6 +177,7 @@ int menuListarCuentas() {
     switch (resultado.status) {
         case 200:
             menuResultadoCuentas(resultado);
+            free(resultado.resultados);
             break;
         case 404:
             gotoxy(23, 3);
@@ -189,7 +190,6 @@ int menuListarCuentas() {
             getch();
             break;
     }
-    free(resultado.resultados);
     return 0;
 }
 

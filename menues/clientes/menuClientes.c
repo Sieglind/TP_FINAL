@@ -217,6 +217,7 @@ int menuBuscarCliente() {
                 break;
             case 200:
                 opcion = mostrarResultadoCliente(*resultado.resultados, 33);
+                free(resultado.resultados);
                 break;
             case 404:
                 opcion = menuIngresarNroCliente(arrayNroCliente, 404, BREADCRUMB_BUSCAR);
@@ -226,7 +227,6 @@ int menuBuscarCliente() {
                 break;
         }
     }
-    free(resultado.resultados);
     return 0;
 }
 
@@ -273,6 +273,7 @@ int menuListarClientes() {
     switch (resultado.status) {
         case 200:
             menuResultadosClientes(resultado);
+            free(resultado.resultados);
             break;
         case 404:
             gotoxy(23, 3);
@@ -285,7 +286,6 @@ int menuListarClientes() {
             getch();
             break;
     }
-    free(resultado.resultados);
     return 0;
 }
 
@@ -325,6 +325,7 @@ int menuActualizarCliente() {
                 opcion == 200 ? (opcion = 4) : (opcion = 500);
                 break;
             case 4:
+                free(resultado.resultados);
                 gotoxy(25, 3);
                 printf("%-80s", "Cliente correctamente actualizado.");
                 opcion = 0;
@@ -332,7 +333,6 @@ int menuActualizarCliente() {
                 break;
         }
     }
-    free(resultado.resultados);
     return 0;
 }
 

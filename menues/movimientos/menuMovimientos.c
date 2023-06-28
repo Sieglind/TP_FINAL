@@ -110,6 +110,7 @@ int menuMovimientos() {
                 break;
             case 200:
                 opcion = menuResultadosMovimientos(resultado);
+                free(resultado.resultados);
                 break;
             case 404:
                 opcion = menuIngresarIdCuenta(arrayIdCuenta, opcion);
@@ -119,6 +120,5 @@ int menuMovimientos() {
                 break;
         }
     }
-    free(resultado.resultados);
     return 0;
 }
