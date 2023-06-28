@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <time.h>
-#include "interfaces/interfaces.h"
 #include "menues/menu.h"
 
 int main() {

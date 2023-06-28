@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <conio.h>
+#include <malloc.h>
 #include "menuCuentas.h"
 #include "../../interfaces/interfaces.h"
 #include "../navegacion/navegacion.h"
@@ -167,6 +168,7 @@ int menuBuscarCuentas() {
                 break;
         }
     }
+    free(resultado.resultados);
     return 0;
 }
 
@@ -187,6 +189,7 @@ int menuListarCuentas() {
             getch();
             break;
     }
+    free(resultado.resultados);
     return 0;
 }
 

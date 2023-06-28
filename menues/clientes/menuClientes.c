@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <conio.h>
+#include <malloc.h>
 #include "menuClientes.h"
 #include "../../interfaces/interfaces.h"
 #include "../navegacion/navegacion.h"
@@ -60,7 +61,7 @@ int menuIngresarCliente(char nombre[], char apellido[], char dni[], char email[]
                 }
                 break;
             case 6:
-                paso = opValidarDni(10, dni) ? 7 : 5;
+                paso = opValidarNumero(10, dni) ? 7 : 5;
                 break;
             case 7:
                 gotoxy(x, y);
@@ -96,7 +97,7 @@ int menuIngresarCliente(char nombre[], char apellido[], char dni[], char email[]
                 }
                 break;
             case 12:
-                paso = opValidarDni(12, telefono) ? 13 : 11;
+                paso = opValidarNumero(12, telefono) ? 13 : 11;
                 break;
         }
     }
@@ -225,6 +226,7 @@ int menuBuscarCliente() {
                 break;
         }
     }
+    free(resultado.resultados);
     return 0;
 }
 
@@ -283,6 +285,7 @@ int menuListarClientes() {
             getch();
             break;
     }
+    free(resultado.resultados);
     return 0;
 }
 
@@ -329,6 +332,7 @@ int menuActualizarCliente() {
                 break;
         }
     }
+    free(resultado.resultados);
     return 0;
 }
 

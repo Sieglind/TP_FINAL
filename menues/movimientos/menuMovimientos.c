@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <conio.h>
+#include <malloc.h>
 #include "menuMovimientos.h"
 #include "../navegacion/navegacion.h"
 #include "../../interfaces/interfaces.h"
 #include "../../utils/gotoxy.h"
 #include "../../operaciones/movimientos/opMovimientos.h"
 
-#define BREADCRUMB              "MOVIMIENTOS   :   Buscar   :   Ingrese el nuemero de cuenta   : "
+#define BREADCRUMB              "MOVIMIENTOS : Buscar : Ingrese el nuemero de cuenta : "
 #define MENSAJE_NO_ENCONTRADO   "No se encontraron movimientos asociedos a dicho id de cuenta."
 #define MENSAJE_ERROR           "Error desconocido."
 #define PAGINA_ANTERIOR         "<-- Pagina Anterior"
@@ -40,8 +41,8 @@ int menuIngresarIdCuenta(int arrayIdCuenta[], int status) {
         gotoxy(23, 2);
         printf("%s", BREADCRUMB);
     } else {
-        gotoxy(76, 2);
-        printf("%9s", " ");
+        gotoxy(77, 2);
+        printf("%8s", " ");
         gotoxy(23, 3);
         printf("%-64s", status == 404 ? MENSAJE_NO_ENCONTRADO : MENSAJE_ERROR);
         gotoxy(77, 2);
@@ -118,5 +119,6 @@ int menuMovimientos() {
                 break;
         }
     }
+    free(resultado.resultados);
     return 0;
 }

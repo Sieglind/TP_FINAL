@@ -104,30 +104,30 @@ int opInicializarClientes(int idClientes[50]) {
     return persistirClientesIniciales(50, clientes);
 }
 
-int opValidarString(const char nombre[]) {
+int opValidarString(const char string[]) {
     int validez = 1;
-    int longitud = strlen(nombre);
+    int longitud = strlen(string);
     if (30 <= longitud) {
         validez = 0;
     } else {
         int i = 0;
         while ((i < validez) && validez == 1) {
-            if (!isalpha(nombre[i]) && nombre[i] != ' ') validez = 0;
+            if (!isalpha(string[i]) && string[i] != ' ') validez = 0;
             i++;
         }
     }
     return validez;
 }
 
-int opValidarDni(int digitos, const char dni[10]) {
+int opValidarNumero(int digitos, const char string[10]) {
     int validez = 1;
-    int longitud = strlen(dni);
+    int longitud = strlen(string);
     if (longitud < 7 || (longitud > digitos - 1)) {
         validez = 0;
     } else {
         int i = 0;
         while (i < longitud && validez == 1) {
-            if (!isdigit(dni[i])) validez = 0;
+            if (!isdigit(string[i])) validez = 0;
             i++;
         }
     }

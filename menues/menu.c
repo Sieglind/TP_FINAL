@@ -6,6 +6,7 @@
 #include "movimientos/menuMovimientos.h"
 #include "otros/menuOtros.h"
 
+
 int navegarMenuPrincipal() {
     cargarMenuPrincipal();
     int posiciones[] = {18,38,79,99};
