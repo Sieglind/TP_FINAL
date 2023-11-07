@@ -1,9 +1,10 @@
 #include "../persistencias/clientes/persistenciaClientes.h"
+#include <stdlib.h>
 
 typedef struct nodoArbol {
-    stCliente dato;
-    struct nodoArbol *izq;
-    struct nodoArbol *der;
+    stCliente cliente;
+    struct nodoArbol *izquierda;
+    struct nodoArbol *derecha;
 } nodoArbol;
 
 nodoArbol *crearNodoArbol(stCliente cliente);

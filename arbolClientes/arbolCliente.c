@@ -8,9 +8,9 @@ nodoArbol *inicArbol() {
 nodoArbol *crearNodoArbol(stCliente cliente) {
     nodoArbol *nuevo = (nodoArbol *) malloc(sizeof(nodoArbol));
 
-    nuevo->dato = cliente;
-    nuevo->izq = inicArbol();
-    nuevo->der = inicArbol();
+    nuevo->cliente = cliente;
+    nuevo->izquierda = inicArbol();
+    nuevo->derecha = inicArbol();
 
     return nuevo;
 }
@@ -19,10 +19,10 @@ nodoArbol *agregarArbolCliente(nodoArbol *arbol, nodoArbol *nuevo) {
     if (arbol) {
         arbol = nuevo;
     } else {
-        if (nuevo->dato.nroCliente > arbol->dato.nroCliente) {
-            arbol->der = agregarArbolCliente(arbol->der, nuevo);
+        if (nuevo->cliente.nroCliente > arbol->cliente.nroCliente) {
+            arbol->derecha = agregarArbolCliente(arbol->derecha, nuevo);
         } else {
-            arbol->izq = agregarArbolCliente(arbol->izq, nuevo);
+            arbol->izquierda = agregarArbolCliente(arbol->izquierda, nuevo);
         }
     }
     return arbol;
