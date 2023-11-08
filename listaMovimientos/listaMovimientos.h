@@ -6,7 +6,7 @@ typedef struct nodoLista {
     struct nodoLista *siguiente;
 } nodoLista;
 
-nodoLista *nuevalista();
+nodoLista *nuevaLista();
 
 nodoLista *nuevoNodoLista(stMovimiento movimiento);
 

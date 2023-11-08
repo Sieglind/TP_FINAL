@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #define ARCHIVO_CUENTAS "cuentas.dat"
 #define ID_INICIAL_CUENTAS 60000000
 #define STATUS_OK 200
@@ -24,6 +26,8 @@ int persistirCuentasIniciales(int vCuentas,stCuenta cuentas[vCuentas]);
 int obtenerNuevoIdCuenta();
 
 int persistirCuentaNueva(stCuenta cuenta);
+
+int implementarBusquedaPorCliente(FILE *archivo,int idCliente,stCuenta *cuentas);
 
 stResultadoCuentas buscarCuentasPorIdCliente(int idCliente);
 

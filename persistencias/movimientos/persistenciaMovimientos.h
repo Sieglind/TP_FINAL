@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #define ARCHIVO_MOVIMIENTOS "movimientos.dat"
 #define ID_INICIAL_MOVIMIENTOS 90000000
 #define STATUS_OK 200
@@ -28,6 +30,8 @@ typedef struct{
  * @param movimientos Arreglo conteniendo los movimientos a persisitir
  */
 int persistirMovimientosIniciales(int vMovimientos,stMovimiento movimientos[vMovimientos]);
+
+int implementarBusquedaPorCuenta(FILE *archivo, int idCuenta, stMovimiento *movimientos);
 
 /**
  * @brief Busca los movimientos existentes, si los hay, que esten asociados a la cuenta identificada por el parametro

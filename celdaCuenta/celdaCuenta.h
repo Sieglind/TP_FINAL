@@ -7,5 +7,6 @@ typedef struct {
     nodoLista *listaMovimiento;
 } celda;
 
+celda crearCeldaCuenta(stCuenta cuenta);
 
 

@@ -6,11 +6,13 @@ typedef struct nodoArbol {
     stCliente cliente;
     struct nodoArbol *izquierda;
     struct nodoArbol *derecha;
-    celda cuentas[];
+    celda cuentas[3];
 } nodoArbol;
 
-nodoArbol *crearNodoArbol(stCliente cliente);
+nodoArbol *nuevoArbol();
 
 nodoArbol *crearNodoArbol(stCliente cliente);
 
 nodoArbol *agregarArbolCliente(nodoArbol *arbol, nodoArbol *nuevo);
+
+nodoArbol *crearArbolDesdeArchivos(nodoArbol *arbol);
