@@ -16,7 +16,7 @@ nodoArbol *crearNodoArbol(stCliente cliente) {
 }
 
 nodoArbol *agregarArbolCliente(nodoArbol *arbol, nodoArbol *nuevo) {
-    if (arbol) {
+    if (!arbol) {
         arbol = nuevo;
     } else {
         if (nuevo->cliente.nroCliente > arbol->cliente.nroCliente) {
@@ -34,15 +34,15 @@ nodoArbol *crearArbolDesdeArchivos(nodoArbol *arbol) {
     FILE *archivoMovimientos = fopen(ARCHIVO_MOVIMIENTOS, "rb");
     if (archivoClientes && archivoCuentas && archivoMovimientos) {
         stCliente cliente;
-        int vCuentas;
-        stCuenta *cuentas = (stCuenta *) malloc(0);
         while (fread(&cliente, sizeof(stCliente), 1, archivoClientes) > 0) {
             nodoArbol *nodoCliente = crearNodoArbol(cliente);
+            int vCuentas;
+            stCuenta *cuentas = (stCuenta *) malloc(0);
             vCuentas = implementarBusquedaPorCliente(archivoCuentas, cliente.nroCliente, cuentas);
             for (int i = 0; i < vCuentas; i++) {
                 nodoCliente->cuentas[i] = crearCeldaCuenta(cuentas[i]);
                 int vMovimientos;
-                stMovimiento *movimientos = (stMovimiento *) malloc(0);
+                stMovimiento *movimientos = (stMovimiento *) malloc(100 * sizeof(stMovimiento));
                 vMovimientos = implementarBusquedaPorCuenta(archivoMovimientos,
                                                             cuentas[i].nroCuenta,
                                                             movimientos);
@@ -54,6 +54,7 @@ nodoArbol *crearArbolDesdeArchivos(nodoArbol *arbol) {
                 }
                 free(movimientos);
             }
+            free(cuentas);
             arbol = agregarArbolCliente(arbol, nodoCliente);
         }
     }
