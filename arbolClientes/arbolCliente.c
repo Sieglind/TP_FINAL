@@ -36,13 +36,13 @@ nodoArbol *crearArbolDesdeArchivos(nodoArbol *arbol) {
         stCliente cliente;
         int vCuentas;
         stCuenta *cuentas = (stCuenta *) malloc(0);
-        int vMovimientos;
-        stMovimiento *movimientos = (stMovimiento *) malloc(0);
         while (fread(&cliente, sizeof(stCliente), 1, archivoClientes) > 0) {
             nodoArbol *nodoCliente = crearNodoArbol(cliente);
             vCuentas = implementarBusquedaPorCliente(archivoCuentas, cliente.nroCliente, cuentas);
             for (int i = 0; i < vCuentas; i++) {
                 nodoCliente->cuentas[i] = crearCeldaCuenta(cuentas[i]);
+                int vMovimientos;
+                stMovimiento *movimientos = (stMovimiento *) malloc(0);
                 vMovimientos = implementarBusquedaPorCuenta(archivoMovimientos,
                                                             cuentas[i].nroCuenta,
                                                             movimientos);
@@ -52,6 +52,7 @@ nodoArbol *crearArbolDesdeArchivos(nodoArbol *arbol) {
                             nuevoNodoLista(movimientos[j])
                     );
                 }
+                free(movimientos);
             }
             arbol = agregarArbolCliente(arbol, nodoCliente);
         }
