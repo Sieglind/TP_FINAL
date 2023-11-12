@@ -16,3 +16,13 @@ nodoArbol *crearNodoArbol(stCliente cliente);
 nodoArbol *agregarArbolCliente(nodoArbol *arbol, nodoArbol *nuevo);
 
 nodoArbol *crearArbolDesdeArchivos(nodoArbol *arbol);
+
+nodoArbol *cargarClientesEnArbol(nodoArbol *arbol);
+
+nodoArbol *arregloToArbolBalanceado(stCliente clientes[], int inicio, int fin, nodoArbol *arbol);
+
+nodoArbol * cargarCuentasEnClientes(nodoArbol * arbol);
+
+nodoArbol *  cargarCuentasDeArchivo(nodoArbol * arbol);
+
+void preOrder(nodoArbol * arbol);

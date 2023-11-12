@@ -8,9 +8,13 @@ int main() {
 
     nodoArbol * arbol = nuevoArbol();
 
-    arbol = crearArbolDesdeArchivos(arbol);
+    arbol = cargarClientesEnArbol(arbol);
+
+    arbol = cargarCuentasEnClientes(arbol);
 
     menuPrincipal();
+
+    system("pause");
 
     return 0;
 }
