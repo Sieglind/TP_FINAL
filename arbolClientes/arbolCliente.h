@@ -15,3 +15,9 @@ nodoArbol *nuevoArbol();
 nodoArbol *crearNodoArbol(stCliente cliente);
 
 nodoArbol *agregarClienteAlArbol(nodoArbol *arbol, nodoArbol *nuevo);
+
+nodoArbol * cargarClientesEnArbol(nodoArbol * arbol);
+
+int calcularCantidadDeEstructuras(char nombreArchivo[], int tamañoEstructura);
+
+nodoArbol *arregloAArbolBalanceado(stCliente arreglo[], int inicio, int fin, nodoArbol *arbol);

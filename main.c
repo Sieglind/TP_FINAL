@@ -6,7 +6,9 @@
 int main() {
     srand(time(NULL));
 
-    nodoArbol * arbol = nuevoArbol();
+    nodoArbol *arbol = nuevoArbol();
+
+    arbol = cargarClientesEnArbol(arbol);
 
     menuPrincipal();
 
