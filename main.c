@@ -8,10 +8,6 @@ int main() {
 
     nodoArbol * arbol = nuevoArbol();
 
-    arbol = cargarClientesEnArbol(arbol);
-
-    arbol = cargarCuentasEnClientes(arbol);
-
     menuPrincipal();
 
     system("pause");
