@@ -10,6 +10,10 @@ int main() {
 
     arbol = cargarClientesEnArbol(arbol);
 
+    cargarCuentasEnArbol(arbol);
+
+    arbol = cargarMovimientosArbol(arbol);
+
     menuPrincipal();
 
     system("pause");

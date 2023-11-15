@@ -8,3 +8,4 @@ celda crearCeldaCuenta(stCuenta cuenta) {
 
     return celdaCuenta;
 }
+

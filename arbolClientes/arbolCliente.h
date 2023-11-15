@@ -21,3 +21,11 @@ nodoArbol * cargarClientesEnArbol(nodoArbol * arbol);
 int calcularCantidadDeEstructuras(char nombreArchivo[], int tamañoEstructura);
 
 nodoArbol *arregloAArbolBalanceado(stCliente arreglo[], int inicio, int fin, nodoArbol *arbol);
+
+nodoArbol *cargarCuentasEnArbol(nodoArbol *arbol);
+
+nodoArbol * buscarClienteEnArbol(nodoArbol * arbol, int nroCliente);
+
+nodoArbol* cargarMovimientosArbol(nodoArbol *arbol);
+
+nodoArbol *agregrarMovimientosAArbol(nodoArbol *arbol, stMovimiento movimientos[], int cantMovimientos);
