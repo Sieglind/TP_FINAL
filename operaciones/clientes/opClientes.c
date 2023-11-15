@@ -56,124 +56,124 @@
                     "San Ignacio de Loyola", "Cervantes", "Solis", "Jorge Newbery","San Benito", "Carlos Pellegrini",  \
                     "Calderon de la Barca"}
 
-void generarDni(char dni[10]) {
-    int dniRandom = 0;
-    for (int i = 0; i < 9; i++) {
-        dniRandom += (rand() % 10) * (int) pow(10, i);
-    }
-    sprintf(dni, "%d", dniRandom);
-}
-
-void generarEmail(stCliente *cliente) {
-    char domains[2][8] = {"gmail", "hotmail"};
-    sprintf(cliente->email, "%c.%s@%s.com", tolower(cliente->nombre[0]), strlwr(cliente->apellido),
-            domains[rand() % 2]);
-}
-
-void generarDomicilio(stCliente *cliente) {
-    char calles[130][21] = CALLES;
-    sprintf(cliente->domicilio, "%s , %05d.", calles[rand() % 130], rand() % 10000);
-}
-
-void generarTelefono(stCliente *cliente) {
-    sprintf(cliente->telefono, "%d-%d%d", (rand() % 3890) + 10, (rand() % 5) + 1, rand() % 999999);
-}
-
-int opInicializarClientes(int idClientes[50]) {
-    stCliente clientes[50];
-    char nombres[140][13] = NOMBRES;
-    char apellidos[140][13] = APELLIDOS;
-
-    for (int i = 0; i < 50; i++) {
-        stCliente cliente;
-        cliente.id = i;
-        cliente.nroCliente = ID_INICIAL_CLIENTES + i;
-        idClientes[i] = cliente.nroCliente;
-        strcpy(cliente.nombre, nombres[rand() % 140]);
-        strcpy(cliente.apellido, apellidos[rand() % 140]);
-        generarDni(cliente.dni);
-        generarEmail(&cliente);
-        generarDomicilio(&cliente);
-        generarTelefono(&cliente);
-        cliente.eliminado = 0;
-        clientes[i] = cliente;
-        gotoxy(25, 13);
-        printf("%d | %d ", cliente.id, cliente.nroCliente);
-        usleep(1000000 / 50);
-    }
-    return persistirClientesIniciales(50, clientes);
-}
-
-int opValidarString(const char string[]) {
-    int validez = 1;
-    int longitud = strlen(string);
-    if (30 <= longitud) {
-        validez = 0;
-    } else {
-        int i = 0;
-        while ((i < validez) && validez == 1) {
-            if (!isalpha(string[i]) && string[i] != ' ') validez = 0;
-            i++;
-        }
-    }
-    return validez;
-}
-
-int opValidarNumero(int digitos, const char string[10]) {
-    int validez = 1;
-    int longitud = strlen(string);
-    if (longitud < 7 || (longitud > digitos - 1)) {
-        validez = 0;
-    } else {
-        int i = 0;
-        while (i < longitud && validez == 1) {
-            if (!isdigit(string[i])) validez = 0;
-            i++;
-        }
-    }
-    return validez;
-}
-
-int opValidarCorreo(const char correo[]) {
-    int validez = 0;
-    int longitud = strlen(correo);
-    int posicionArroba = 0;
-    while (correo[posicionArroba] != '@' && posicionArroba < longitud - 10) {
-        posicionArroba++;
-    }
-    if (posicionArroba != 0 && (strstr(correo + posicionArroba, "@gmail.com") != NULL ||
-                                strstr(correo + posicionArroba, "@hotmail.com") != NULL)) {
-        validez = 1;
-    }
-    return validez;
-}
-
-int opValidarDireccion(char direccion[]) {
-    int validez = 1;
-    for (int i = 0; i < strlen(direccion); i++) {
-        if (!isalpha(direccion[i]) && !isdigit(direccion[i]) && !isblank(direccion[i])) validez = 0;
-    }
-    return validez;
-}
-
-int opGuardarNuevoCliente(char nombre[], char apellido[], char dni[], char email[], char domicilio[], char telefono[]) {
-    stCliente cliente;
-    cliente.id = obtenerNuevoIdCliente();
-    if (cliente.id != -1) {
-        cliente.nroCliente = ID_INICIAL_CLIENTES + cliente.id;
-        strcpy(cliente.nombre, nombre);
-        strcpy(cliente.apellido, apellido);
-        strcpy(cliente.dni, dni);
-        strcpy(cliente.email, email);
-        strcpy(cliente.domicilio, domicilio);
-        strcpy(cliente.telefono, telefono);
-        cliente.eliminado = 0;
-        return persistirClienteNuevo(cliente);
-    } else {
-        return 500;
-    }
-}
-
+//void generarDni(char dni[10]) {
+//    int dniRandom = 0;
+//    for (int i = 0; i < 9; i++) {
+//        dniRandom += (rand() % 10) * (int) pow(10, i);
+//    }
+//    sprintf(dni, "%d", dniRandom);
+//}
+//
+//void generarEmail(stCliente *cliente) {
+//    char domains[2][8] = {"gmail", "hotmail"};
+//    sprintf(cliente->email, "%c.%s@%s.com", tolower(cliente->nombre[0]), strlwr(cliente->apellido),
+//            domains[rand() % 2]);
+//}
+//
+//void generarDomicilio(stCliente *cliente) {
+//    char calles[130][21] = CALLES;
+//    sprintf(cliente->domicilio, "%s , %05d.", calles[rand() % 130], rand() % 10000);
+//}
+//
+//void generarTelefono(stCliente *cliente) {
+//    sprintf(cliente->telefono, "%d-%d%d", (rand() % 3890) + 10, (rand() % 5) + 1, rand() % 999999);
+//}
+//
+//int opInicializarClientes(int idClientes[50]) {
+//    stCliente clientes[50];
+//    char nombres[140][13] = NOMBRES;
+//    char apellidos[140][13] = APELLIDOS;
+//
+//    for (int i = 0; i < 50; i++) {
+//        stCliente cliente;
+//        cliente.id = i;
+//        cliente.nroCliente = ID_INICIAL_CLIENTES + i;
+//        idClientes[i] = cliente.nroCliente;
+//        strcpy(cliente.nombre, nombres[rand() % 140]);
+//        strcpy(cliente.apellido, apellidos[rand() % 140]);
+//        generarDni(cliente.dni);
+//        generarEmail(&cliente);
+//        generarDomicilio(&cliente);
+//        generarTelefono(&cliente);
+//        cliente.eliminado = 0;
+//        clientes[i] = cliente;
+//        gotoxy(25, 13);
+//        printf("%d | %d ", cliente.id, cliente.nroCliente);
+//        usleep(1000000 / 50);
+//    }
+//    return persistirClientesIniciales(50, clientes);
+//}
+//
+//int opValidarString(const char string[]) {
+//    int validez = 1;
+//    int longitud = strlen(string);
+//    if (30 <= longitud) {
+//        validez = 0;
+//    } else {
+//        int i = 0;
+//        while ((i < validez) && validez == 1) {
+//            if (!isalpha(string[i]) && string[i] != ' ') validez = 0;
+//            i++;
+//        }
+//    }
+//    return validez;
+//}
+//
+//int opValidarNumero(int digitos, const char string[10]) {
+//    int validez = 1;
+//    int longitud = strlen(string);
+//    if (longitud < 7 || (longitud > digitos - 1)) {
+//        validez = 0;
+//    } else {
+//        int i = 0;
+//        while (i < longitud && validez == 1) {
+//            if (!isdigit(string[i])) validez = 0;
+//            i++;
+//        }
+//    }
+//    return validez;
+//}
+//
+//int opValidarCorreo(const char correo[]) {
+//    int validez = 0;
+//    int longitud = strlen(correo);
+//    int posicionArroba = 0;
+//    while (correo[posicionArroba] != '@' && posicionArroba < longitud - 10) {
+//        posicionArroba++;
+//    }
+//    if (posicionArroba != 0 && (strstr(correo + posicionArroba, "@gmail.com") != NULL ||
+//                                strstr(correo + posicionArroba, "@hotmail.com") != NULL)) {
+//        validez = 1;
+//    }
+//    return validez;
+//}
+//
+//int opValidarDireccion(char direccion[]) {
+//    int validez = 1;
+//    for (int i = 0; i < strlen(direccion); i++) {
+//        if (!isalpha(direccion[i]) && !isdigit(direccion[i]) && !isblank(direccion[i])) validez = 0;
+//    }
+//    return validez;
+//}
+//
+//int opGuardarNuevoCliente(char nombre[], char apellido[], char dni[], char email[], char domicilio[], char telefono[]) {
+//    stCliente cliente;
+//    cliente.id = obtenerNuevoIdCliente();
+//    if (cliente.id != -1) {
+//        cliente.nroCliente = ID_INICIAL_CLIENTES + cliente.id;
+//        strcpy(cliente.nombre, nombre);
+//        strcpy(cliente.apellido, apellido);
+//        strcpy(cliente.dni, dni);
+//        strcpy(cliente.email, email);
+//        strcpy(cliente.domicilio, domicilio);
+//        strcpy(cliente.telefono, telefono);
+//        cliente.eliminado = 0;
+//        return persistirClienteNuevo(cliente);
+//    } else {
+//        return 500;
+//    }
+//}
+//
 double convertirNroCuentaArrayAInt(const int arrayNroCliente[8]) {
     double intNroCliente = 0;
     for (int i = 0; i <= 7; i++) {
@@ -182,28 +182,28 @@ double convertirNroCuentaArrayAInt(const int arrayNroCliente[8]) {
     return intNroCliente;
 }
 
-stResultadoClientes opBuscarCliente(int arrayNroCliente[]) {
+nodoArbol * opBuscarCliente(nodoArbol * arbol,int arrayNroCliente[]) {
     int nroCliente = (int) convertirNroCuentaArrayAInt(arrayNroCliente);
-    return buscarClientePorNroCliente(nroCliente);
+    return buscarClienteEnArbol(arbol,nroCliente);
 }
 
-stResultadoClientes opListarClientes() {
-    return listarClientes();
-}
-
-int opActualizarCliente(stCliente cliente,
-                        char nombre[], char apellido[], char dni[], char email[], char domicilio[], char telefono[]) {
-    strcpy(cliente.nombre, nombre);
-    strcpy(cliente.apellido, apellido);
-    strcpy(cliente.dni, dni);
-    strcpy(cliente.email, email);
-    strcpy(cliente.domicilio, domicilio);
-    strcpy(cliente.telefono, telefono);
-    cliente.eliminado = 0;
-    return persistirActualizacion(cliente);
-}
-
-int opBorrarCliente(int arrayNroCliente[]){
-    int nroCliente =(int) convertirNroCuentaArrayAInt(arrayNroCliente);
-    return persistirClienteEliminado(nroCliente);
-}
+//stResultadoClientes opListarClientes() {
+//    return listarClientes();
+//}
+//
+//int opActualizarCliente(stCliente cliente,
+//                        char nombre[], char apellido[], char dni[], char email[], char domicilio[], char telefono[]) {
+//    strcpy(cliente.nombre, nombre);
+//    strcpy(cliente.apellido, apellido);
+//    strcpy(cliente.dni, dni);
+//    strcpy(cliente.email, email);
+//    strcpy(cliente.domicilio, domicilio);
+//    strcpy(cliente.telefono, telefono);
+//    cliente.eliminado = 0;
+//    return persistirActualizacion(cliente);
+//}
+//
+//int opBorrarCliente(int arrayNroCliente[]){
+//    int nroCliente =(int) convertirNroCuentaArrayAInt(arrayNroCliente);
+//    return persistirClienteEliminado(nroCliente);
+//}

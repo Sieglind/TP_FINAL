@@ -21,16 +21,16 @@ typedef struct {
     stCuenta * resultados;
 } stResultadoCuentas;
 
-int persistirCuentasIniciales(int vCuentas,stCuenta cuentas[vCuentas]);
-
-int obtenerNuevoIdCuenta();
-
-int persistirCuentaNueva(stCuenta cuenta);
-
-int implementarBusquedaPorCliente(FILE *archivo,int idCliente,stCuenta *cuentas);
-
-stResultadoCuentas buscarCuentasPorIdCliente(int idCliente);
-
-stResultadoCuentas listarCuentas();
-
-int persistirCuentaEliminada(int idCliente);
+//int persistirCuentasIniciales(int vCuentas,stCuenta cuentas[vCuentas]);
+//
+//int obtenerNuevoIdCuenta();
+//
+//int persistirCuentaNueva(stCuenta cuenta);
+//
+//int implementarBusquedaPorCliente(FILE *archivo,int idCliente,stCuenta *cuentas);
+//
+//stResultadoCuentas buscarCuentasPorIdCliente(int idCliente);
+//
+//stResultadoCuentas listarCuentas();
+//
+//int persistirCuentaEliminada(int idCliente);
