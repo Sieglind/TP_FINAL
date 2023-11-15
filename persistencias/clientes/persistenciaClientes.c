@@ -13,14 +13,14 @@ int persistirClientesIniciales(int vClientes, stCliente clientes[vClientes]) {
     return result;
 }
 
-int obtenerNuevoIdCliente() {
-    struct stat status;
-    if (stat(ARCHIVO_CLIENTES, &status) == 0) {
-        return status.st_size / sizeof(stCliente);
-    } else {
-        return -1;
-    }
-}
+//int obtenerNuevoIdCliente() {
+//    struct stat status;
+//    if (stat(ARCHIVO_CLIENTES, &status) == 0) {
+//        return status.st_size / sizeof(stCliente);
+//    } else {
+//        return -1;
+//    }
+//}
 
 stResultadoClientes implementarBusquedaChar(FILE *archivo, stCliente consulta) {
     stCliente cliente;

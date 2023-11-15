@@ -29,3 +29,5 @@ nodoArbol * buscarClienteEnArbol(nodoArbol * arbol, int nroCliente);
 nodoArbol* cargarMovimientosArbol(nodoArbol *arbol);
 
 nodoArbol *agregrarMovimientosAArbol(nodoArbol *arbol, stMovimiento movimientos[], int cantMovimientos);
+
+int obtenerNuevoIdCliente (nodoArbol* arbol);

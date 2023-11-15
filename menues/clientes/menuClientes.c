@@ -22,108 +22,108 @@ int navegarMenuClientes() {
     return navegarMenu(posiciones, 5, ESCAPE);
 }
 
-//int menuIngresarCliente(char nombre[], char apellido[], char dni[], char email[], char domicilio[], char telefono[],
-//                        int x, int y, int pasoSiguiente) {
-//    int paso = 1;
-//    while (paso != ESCAPE && paso != 13) {
-//        switch (paso) {
-//            case 1:
-//                gotoxy(x, y);
-//                printf("NOMBRE: ");
-//                if (solicitarString(30, nombre, x + 8, y++) == ESCAPE) {
-//                    paso = ESCAPE;
-//                } else {
-//                    paso = 2;
-//                }
-//                break;
-//            case 2:
-//                paso = opValidarString(nombre) ? 3 : 1;
-//                break;
-//            case 3:
-//                gotoxy(x, y);
-//                printf("APELLIDO: ");
-//                if (solicitarString(30, apellido, x + 10, y++) == ESCAPE) {
-//                    paso = ESCAPE;
-//                } else {
-//                    paso = 4;
-//                }
-//                break;
-//            case 4:
-//                paso = opValidarString(apellido) ? 5 : 3;
-//                break;
-//            case 5:
-//                gotoxy(x, y);
-//                printf("DNI: ");
-//                if (solicitarString(10, dni, x + 5, y++) == ESCAPE) {
-//                    paso = ESCAPE;
-//                } else {
-//                    paso = 6;
-//                }
-//                break;
-//            case 6:
-//                paso = opValidarNumero(10, dni) ? 7 : 5;
-//                break;
-//            case 7:
-//                gotoxy(x, y);
-//                printf("EMAIL: ");
-//                if (solicitarString(30, email, x + 7, y++) == ESCAPE) {
-//                    paso = ESCAPE;
-//                } else {
-//                    paso = 8;
-//                }
-//                break;
-//            case 8:
-//                paso = opValidarCorreo(email) ? 9 : 7;
-//                break;
-//            case 9:
-//                gotoxy(x, y);
-//                printf("DOMICILIO: ");
-//                if (solicitarString(45, domicilio, x + 11, y++) == ESCAPE) {
-//                    paso = ESCAPE;
-//                } else {
-//                    paso = 10;
-//                }
-//                break;
-//            case 10:
-//                paso = opValidarDireccion(domicilio) ? 11 : 9;
-//                break;
-//            case 11:
-//                gotoxy(x, y);
-//                printf("TELEFONO: ");
-//                if (solicitarString(12, telefono, x + 10, y++) == ESCAPE) {
-//                    paso = ESCAPE;
-//                } else {
-//                    paso = 12;
-//                }
-//                break;
-//            case 12:
-//                paso = opValidarNumero(12, telefono) ? 13 : 11;
-//                break;
-//        }
-//    }
-//    return paso == ESCAPE ? ESCAPE : pasoSiguiente;
-//}
+int menuIngresarCliente(char nombre[], char apellido[], char dni[], char email[], char domicilio[], char telefono[],
+                        int x, int y, int pasoSiguiente) {
+    int paso = 1;
+    while (paso != ESCAPE && paso != 13) {
+        switch (paso) {
+            case 1:
+                gotoxy(x, y);
+                printf("NOMBRE: ");
+                if (solicitarString(30, nombre, x + 8, y++) == ESCAPE) {
+                    paso = ESCAPE;
+                } else {
+                    paso = 2;
+                }
+                break;
+            case 2:
+                paso = opValidarString(nombre) ? 3 : 1;
+                break;
+            case 3:
+                gotoxy(x, y);
+                printf("APELLIDO: ");
+                if (solicitarString(30, apellido, x + 10, y++) == ESCAPE) {
+                    paso = ESCAPE;
+                } else {
+                    paso = 4;
+                }
+                break;
+            case 4:
+                paso = opValidarString(apellido) ? 5 : 3;
+                break;
+            case 5:
+                gotoxy(x, y);
+                printf("DNI: ");
+                if (solicitarString(10, dni, x + 5, y++) == ESCAPE) {
+                    paso = ESCAPE;
+                } else {
+                    paso = 6;
+                }
+                break;
+            case 6:
+                paso = opValidarNumero(10, dni) ? 7 : 5;
+                break;
+            case 7:
+                gotoxy(x, y);
+                printf("EMAIL: ");
+                if (solicitarString(30, email, x + 7, y++) == ESCAPE) {
+                    paso = ESCAPE;
+                } else {
+                    paso = 8;
+                }
+                break;
+            case 8:
+                paso = opValidarCorreo(email) ? 9 : 7;
+                break;
+            case 9:
+                gotoxy(x, y);
+                printf("DOMICILIO: ");
+                if (solicitarString(45, domicilio, x + 11, y++) == ESCAPE) {
+                    paso = ESCAPE;
+                } else {
+                    paso = 10;
+                }
+                break;
+            case 10:
+                paso = opValidarDireccion(domicilio) ? 11 : 9;
+                break;
+            case 11:
+                gotoxy(x, y);
+                printf("TELEFONO: ");
+                if (solicitarString(12, telefono, x + 10, y++) == ESCAPE) {
+                    paso = ESCAPE;
+                } else {
+                    paso = 12;
+                }
+                break;
+            case 12:
+                paso = opValidarNumero(12, telefono) ? 13 : 11;
+                break;
+        }
+    }
+    return paso == ESCAPE ? ESCAPE : pasoSiguiente;
+}
 
-//int menuCrearCliente(nodoArbol *arbol) {
-//    char nombre[30];
-//    char apellido[30];
-//    char dni[10];
-//    char email[30];
-//    char domicilio[45];
-//    char telefono[12];
-//    int paso = 1;
-//    int resultado = 0;
-//    char resultados[3][8] = {"DNI", "EMAIL", "TELEFONO"};
-//    int x = 33;
-//    int y = 12;
-//    while (paso != ESCAPE) {
-//        switch (paso) {
-//            case 1:
-//                paso = menuIngresarCliente(nombre, apellido, dni, email, domicilio, telefono, x, y, 2);
-//                break;
-//            case 2:
-//                resultado = opGuardarNuevoCliente(nombre, apellido, dni, email, domicilio, telefono);
-//                gotoxy(x, whereY() + 1);
+nodoArbol *menuCrearCliente(nodoArbol *arbol) {
+    char nombre[30];
+    char apellido[30];
+    char dni[10];
+    char email[30];
+    char domicilio[45];
+    char telefono[12];
+    int paso = 1;
+    int resultado = 0;
+    char resultados[3][8] = {"DNI", "EMAIL", "TELEFONO"};
+    int x = 33;
+    int y = 12;
+    while (paso != ESCAPE) {
+        switch (paso) {
+            case 1:
+                paso = menuIngresarCliente(nombre, apellido, dni, email, domicilio, telefono, x, y, 2);
+                break;
+            case 2:
+                arbol = opGuardarNuevoCliente(arbol, nombre, apellido, dni, email, domicilio, telefono);
+                gotoxy(x, whereY() + 1);
 //                if (resultado == 200) {
 //                    paso = resultado;
 //                } else if (resultado == 500) {
@@ -131,26 +131,17 @@ int navegarMenuClientes() {
 //                } else {
 //                    paso = 401;
 //                }
-//                break;
-//            case 200:
-//                printf("CLIENTE CREADO...");
-//                paso = ESCAPE;
-//                getch();
-//                break;
-//            case 401:
-//                printf("YA EXISTE UN CLIENTE CON ESE %s", resultados[resultado]);
-//                paso = ESCAPE;
-//                getch();
-//                break;
-//            case 500:
-//                printf("ERROR AL ABRIR EL ARCHIVO...");
-//                paso = ESCAPE;
-//                getch();
-//                break;
-//        }
-//    }
-//    return 0;
-//}
+                paso = 200;
+                break;
+            case 200:
+                printf("CLIENTE CREADO...");
+                paso = ESCAPE;
+                getch();
+                break;
+        }
+    }
+    return arbol;
+}
 
 int obtenerNroCliente(int arrayNroCliente[]) {
     int digitos = 0;
@@ -385,9 +376,10 @@ int menuClientes() {
                 cargarMenuClientes();
                 opcion = navegarMenuClientes();
                 break;
-//            case 28:
-//                opcion = menuCrearCliente(arbol);
-//                break;
+            case 28:
+                opcion = 0;
+                arbol = menuCrearCliente(arbol);
+                break;
             case 43:
                 opcion = menuBuscarCliente(arbol);
                 break;

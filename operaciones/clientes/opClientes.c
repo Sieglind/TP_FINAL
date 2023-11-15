@@ -104,76 +104,76 @@
 //    return persistirClientesIniciales(50, clientes);
 //}
 //
-//int opValidarString(const char string[]) {
-//    int validez = 1;
-//    int longitud = strlen(string);
-//    if (30 <= longitud) {
-//        validez = 0;
-//    } else {
-//        int i = 0;
-//        while ((i < validez) && validez == 1) {
-//            if (!isalpha(string[i]) && string[i] != ' ') validez = 0;
-//            i++;
-//        }
-//    }
-//    return validez;
-//}
-//
-//int opValidarNumero(int digitos, const char string[10]) {
-//    int validez = 1;
-//    int longitud = strlen(string);
-//    if (longitud < 7 || (longitud > digitos - 1)) {
-//        validez = 0;
-//    } else {
-//        int i = 0;
-//        while (i < longitud && validez == 1) {
-//            if (!isdigit(string[i])) validez = 0;
-//            i++;
-//        }
-//    }
-//    return validez;
-//}
-//
-//int opValidarCorreo(const char correo[]) {
-//    int validez = 0;
-//    int longitud = strlen(correo);
-//    int posicionArroba = 0;
-//    while (correo[posicionArroba] != '@' && posicionArroba < longitud - 10) {
-//        posicionArroba++;
-//    }
-//    if (posicionArroba != 0 && (strstr(correo + posicionArroba, "@gmail.com") != NULL ||
-//                                strstr(correo + posicionArroba, "@hotmail.com") != NULL)) {
-//        validez = 1;
-//    }
-//    return validez;
-//}
-//
-//int opValidarDireccion(char direccion[]) {
-//    int validez = 1;
-//    for (int i = 0; i < strlen(direccion); i++) {
-//        if (!isalpha(direccion[i]) && !isdigit(direccion[i]) && !isblank(direccion[i])) validez = 0;
-//    }
-//    return validez;
-//}
-//
-//int opGuardarNuevoCliente(char nombre[], char apellido[], char dni[], char email[], char domicilio[], char telefono[]) {
-//    stCliente cliente;
-//    cliente.id = obtenerNuevoIdCliente();
-//    if (cliente.id != -1) {
-//        cliente.nroCliente = ID_INICIAL_CLIENTES + cliente.id;
-//        strcpy(cliente.nombre, nombre);
-//        strcpy(cliente.apellido, apellido);
-//        strcpy(cliente.dni, dni);
-//        strcpy(cliente.email, email);
-//        strcpy(cliente.domicilio, domicilio);
-//        strcpy(cliente.telefono, telefono);
-//        cliente.eliminado = 0;
-//        return persistirClienteNuevo(cliente);
-//    } else {
-//        return 500;
-//    }
-//}
-//
+int opValidarString(const char string[]) {
+    int validez = 1;
+    int longitud = strlen(string);
+    if (30 <= longitud) {
+        validez = 0;
+    } else {
+        int i = 0;
+        while ((i < validez) && validez == 1) {
+            if (!isalpha(string[i]) && string[i] != ' ') validez = 0;
+            i++;
+        }
+    }
+    return validez;
+}
+
+int opValidarNumero(int digitos, const char string[10]) {
+    int validez = 1;
+    int longitud = strlen(string);
+    if (longitud < 7 || (longitud > digitos - 1)) {
+        validez = 0;
+    } else {
+        int i = 0;
+        while (i < longitud && validez == 1) {
+            if (!isdigit(string[i])) validez = 0;
+            i++;
+        }
+    }
+    return validez;
+}
+
+int opValidarCorreo(const char correo[]) {
+    int validez = 0;
+    int longitud = strlen(correo);
+    int posicionArroba = 0;
+    while (correo[posicionArroba] != '@' && posicionArroba < longitud - 10) {
+        posicionArroba++;
+    }
+    if (posicionArroba != 0 && (strstr(correo + posicionArroba, "@gmail.com") != NULL ||
+                                strstr(correo + posicionArroba, "@hotmail.com") != NULL)) {
+        validez = 1;
+    }
+    return validez;
+}
+
+int opValidarDireccion(char direccion[]) {
+    int validez = 1;
+    for (int i = 0; i < strlen(direccion); i++) {
+        if (!isalpha(direccion[i]) && !isdigit(direccion[i]) && !isblank(direccion[i])) validez = 0;
+    }
+    return validez;
+}
+
+nodoArbol * opGuardarNuevoCliente(nodoArbol * arbol, char nombre[], char apellido[], char dni[], char email[], char domicilio[], char telefono[]) {
+    stCliente cliente;
+    cliente.id = obtenerNuevoIdCliente(arbol);
+    if (cliente.id != -1) {
+        cliente.nroCliente = ID_INICIAL_CLIENTES + cliente.id;
+        strcpy(cliente.nombre, nombre);
+        strcpy(cliente.apellido, apellido);
+        strcpy(cliente.dni, dni);
+        strcpy(cliente.email, email);
+        strcpy(cliente.domicilio, domicilio);
+        strcpy(cliente.telefono, telefono);
+        cliente.eliminado = 0;
+        return agregarClienteAlArbol(arbol, crearNodoArbol(cliente));
+    } else {
+        return arbol;
+    }
+}
+
 double convertirNroCuentaArrayAInt(const int arrayNroCliente[8]) {
     double intNroCliente = 0;
     for (int i = 0; i <= 7; i++) {

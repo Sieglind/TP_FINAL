@@ -132,3 +132,14 @@ nodoArbol *agregrarMovimientosAArbol(nodoArbol *arbol, stMovimiento movimientos[
     }
     return arbol;
 }
+
+int obtenerNuevoIdCliente (nodoArbol* arbol){
+    if(arbol){
+        if(arbol->derecha == NULL)
+            return arbol->cliente.id+1;
+        else{
+            return obtenerNuevoIdCliente(arbol->derecha);
+        }
+    }
+    return 0;
+}
