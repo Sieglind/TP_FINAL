@@ -284,56 +284,54 @@ int menuListarClientes(nodoArbol *arbol) {
     return 0;
 }
 
-//int menuActualizarCliente(nodoArbol *arbol) {
-//    int arrayNroCliente[8];
-//    nodoArbol * resultado;
-//    stCliente cliente;
-//    char nombre[30];
-//    char apellido[30];
-//    char dni[10];
-//    char email[30];
-//    char domicilio[45];
-//    char telefono[12];
-//    int opcion = 0;
-//    while (opcion != ESCAPE) {
-//        switch (opcion) {
-//            case 0:
-//                opcion = menuIngresarNroCliente(arrayNroCliente, 200, BREADCRUMB_ACTUALIZAR);
-//                break;
-//            case 1:
-//                resultado = opBuscarCliente(arbol,arrayNroCliente);
-//                if (resultado) {
-//                    cliente = resultado->cliente;
-//                    opcion = 200;
-//                } else {
-//                    opcion = 404;
-//                }
-//                break;
-//            case 200:
-//                mostrarResultadoCliente(cliente, 2);
-//                opcion = menuIngresarCliente(nombre, apellido, dni, email, domicilio, telefono, 60, 13, 3);
-//                break;
-//            case 404:
-//                opcion = menuIngresarNroCliente(arrayNroCliente, 404, BREADCRUMB_ACTUALIZAR);
-//                break;
+int menuActualizarCliente(nodoArbol *arbol) {
+    int arrayNroCliente[8];
+    nodoArbol * resultado;
+    stCliente cliente;
+    char nombre[30];
+    char apellido[30];
+    char dni[10];
+    char email[30];
+    char domicilio[45];
+    char telefono[12];
+    int opcion = 0;
+    while (opcion != ESCAPE) {
+        switch (opcion) {
+            case 0:
+                opcion = menuIngresarNroCliente(arrayNroCliente, 200, BREADCRUMB_ACTUALIZAR);
+                break;
+            case 1:
+                resultado = opBuscarCliente(arbol,arrayNroCliente);
+                if (resultado) {
+                    cliente = resultado->cliente;
+                    opcion = 200;
+                } else {
+                    opcion = 404;
+                }
+                break;
+            case 200:
+                mostrarResultadoCliente(cliente, 2);
+                opcion = menuIngresarCliente(nombre, apellido, dni, email, domicilio, telefono, 60, 13, 3);
+                break;
+            case 404:
+                opcion = menuIngresarNroCliente(arrayNroCliente, 404, BREADCRUMB_ACTUALIZAR);
+                break;
 //            case 500:
 //                opcion = menuIngresarNroCliente(arrayNroCliente, 500, BREADCRUMB_ACTUALIZAR);
 //                break;
-//            case 3:
-//                opcion = opActualizarCliente(cliente, nombre, apellido, dni, email, domicilio, telefono);
-//                opcion == 200 ? (opcion = 4) : (opcion = 500);
-//                break;
-//            case 4:
-//                free(resultado);
-//                gotoxy(25, 3);
-//                printf("%-80s", "Cliente correctamente actualizado.");
-//                opcion = 0;
-//                getch();
-//                break;
-//        }
-//    }
-//    return 0;
-//}
+            case 3:
+                opcion = opActualizarCliente(resultado,cliente, nombre, apellido, dni, email, domicilio, telefono);
+                break;
+            case 4:
+                gotoxy(25, 3);
+                printf("%-80s", "Cliente correctamente actualizado.");
+                opcion = 0;
+                getch();
+                break;
+        }
+    }
+    return 0;
+}
 
 //int menuBorrarCliente() {
 //    int arrayNroCliente[8];
@@ -386,9 +384,9 @@ int menuClientes() {
             case 58:
                 opcion = menuListarClientes(arbol);
                 break;
-//            case 73:
-//                opcion = menuActualizarCliente(arbol);
-//                break;
+            case 73:
+                opcion = menuActualizarCliente(arbol);
+                break;
 //            case 88:
 //                opcion = menuBorrarCliente();
 //                break;

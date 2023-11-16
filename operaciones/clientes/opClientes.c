@@ -156,7 +156,9 @@ int opValidarDireccion(char direccion[]) {
     return validez;
 }
 
-nodoArbol * opGuardarNuevoCliente(nodoArbol * arbol, char nombre[], char apellido[], char dni[], char email[], char domicilio[], char telefono[]) {
+nodoArbol *
+opGuardarNuevoCliente(nodoArbol *arbol, char nombre[], char apellido[], char dni[], char email[], char domicilio[],
+                      char telefono[]) {
     stCliente cliente;
     cliente.id = obtenerNuevoIdCliente(arbol);
     if (cliente.id != -1) {
@@ -182,27 +184,35 @@ double convertirNroCuentaArrayAInt(const int arrayNroCliente[8]) {
     return intNroCliente;
 }
 
-nodoArbol * opBuscarCliente(nodoArbol * arbol,int arrayNroCliente[]) {
+nodoArbol *opBuscarCliente(nodoArbol *arbol, int arrayNroCliente[]) {
     int nroCliente = (int) convertirNroCuentaArrayAInt(arrayNroCliente);
-    return buscarClienteEnArbol(arbol,nroCliente);
+    return buscarClienteEnArbol(arbol, nroCliente);
 }
 
-stResultadoClientes opListarClientes(nodoArbol*arbol) {
+stResultadoClientes opListarClientes(nodoArbol *arbol) {
     return listarClientes(arbol);
 }
-//
-//int opActualizarCliente(stCliente cliente,
-//                        char nombre[], char apellido[], char dni[], char email[], char domicilio[], char telefono[]) {
-//    strcpy(cliente.nombre, nombre);
-//    strcpy(cliente.apellido, apellido);
-//    strcpy(cliente.dni, dni);
-//    strcpy(cliente.email, email);
-//    strcpy(cliente.domicilio, domicilio);
-//    strcpy(cliente.telefono, telefono);
-//    cliente.eliminado = 0;
-//    return persistirActualizacion(cliente);
-//}
-//
+
+int opActualizarCliente(
+        nodoArbol *arbol,
+        stCliente cliente,
+        char nombre[],
+        char apellido[],
+        char dni[],
+        char email[],
+        char domicilio[],
+        char telefono[]) {
+    strcpy(cliente.nombre, nombre);
+    strcpy(cliente.apellido, apellido);
+    strcpy(cliente.dni, dni);
+    strcpy(cliente.email, email);
+    strcpy(cliente.domicilio, domicilio);
+    strcpy(cliente.telefono, telefono);
+    cliente.eliminado = 0;
+    arbol->cliente = cliente;
+    return 4;
+}
+
 //int opBorrarCliente(int arrayNroCliente[]){
 //    int nroCliente =(int) convertirNroCuentaArrayAInt(arrayNroCliente);
 //    return persistirClienteEliminado(nroCliente);

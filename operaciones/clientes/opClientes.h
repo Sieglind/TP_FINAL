@@ -10,17 +10,22 @@ int opValidarCorreo(const char correo[]);
 
 int opValidarDireccion(char direccion[]);
 
-nodoArbol * opGuardarNuevoCliente(nodoArbol * arbol, char nombre[], char apellido[], char dni[], char email[], char domicilio[], char telefono[]);
+nodoArbol *
+opGuardarNuevoCliente(nodoArbol *arbol, char nombre[], char apellido[], char dni[], char email[], char domicilio[],
+                      char telefono[]);
 
-nodoArbol * opBuscarCliente(nodoArbol * arbol,int arrayNroCliente[]);
+nodoArbol *opBuscarCliente(nodoArbol *arbol, int arrayNroCliente[]);
 
-stResultadoClientes opListarClientes(nodoArbol * arbol);
+stResultadoClientes opListarClientes(nodoArbol *arbol);
 
-//int opActualizarCliente(stCliente cliente,
-//                        char nombre[],
-//                        char apellido[],
-//                        char dni[],
-//                        char email[],
-//                        char domicilio[],
-//                        char telefono[]);
+int opActualizarCliente(
+        nodoArbol *arbol,
+        stCliente cliente,
+        char nombre[],
+        char apellido[],
+        char dni[],
+        char email[],
+        char domicilio[],
+        char telefono[]);
+
 //int opBorrarCliente(int arrayNroCliente[]);
