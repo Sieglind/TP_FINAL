@@ -85,33 +85,33 @@ stResultadoClientes buscarClientePorNroCliente(int nroCliente) {
     }
 }
 
-stResultadoClientes listarClientes() {
-    stResultadoClientes resultado;
-    int cantidad = obtenerNuevoIdCliente();
-    if (cantidad != 0) {
-        FILE *archivo = fopen(ARCHIVO_CLIENTES, "rb");
-        if (archivo) {
-            stCliente *clientes = (stCliente *) malloc(sizeof(stCliente) * cantidad);
-            stCliente cliente;
-            int noEliminados = 0;
-            for (int i = 0; i < cantidad; i++) {
-                fread(&cliente, sizeof(stCliente), 1, archivo);
-                if (cliente.eliminado == 0) clientes[noEliminados++] = cliente;
-            }
-            fclose(archivo);
-            resultado.status = STATUS_OK;
-            resultado.cantidad = noEliminados;
-            resultado.resultados = clientes;
-            return resultado;
-        } else {
-            resultado.status = STATUS_ERROR;
-            return resultado;
-        }
-    } else {
-        resultado.status = STATUS_NO_ENCONTRADO;
-        return resultado;
-    }
-}
+//stResultadoClientes listarClientes() {
+//    stResultadoClientes resultado;
+//    int cantidad = obtenerNuevoIdCliente();
+//    if (cantidad != 0) {
+//        FILE *archivo = fopen(ARCHIVO_CLIENTES, "rb");
+//        if (archivo) {
+//            stCliente *clientes = (stCliente *) malloc(sizeof(stCliente) * cantidad);
+//            stCliente cliente;
+//            int noEliminados = 0;
+//            for (int i = 0; i < cantidad; i++) {
+//                fread(&cliente, sizeof(stCliente), 1, archivo);
+//                if (cliente.eliminado == 0) clientes[noEliminados++] = cliente;
+//            }
+//            fclose(archivo);
+//            resultado.status = STATUS_OK;
+//            resultado.cantidad = noEliminados;
+//            resultado.resultados = clientes;
+//            return resultado;
+//        } else {
+//            resultado.status = STATUS_ERROR;
+//            return resultado;
+//        }
+//    } else {
+//        resultado.status = STATUS_NO_ENCONTRADO;
+//        return resultado;
+//    }
+//}
 
 int persistirActualizacion(stCliente cliente) {
     FILE *archivo = fopen(ARCHIVO_CLIENTES, "r+b");

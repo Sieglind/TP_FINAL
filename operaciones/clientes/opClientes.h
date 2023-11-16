@@ -14,8 +14,8 @@ nodoArbol * opGuardarNuevoCliente(nodoArbol * arbol, char nombre[], char apellid
 
 nodoArbol * opBuscarCliente(nodoArbol * arbol,int arrayNroCliente[]);
 
-//stResultadoClientes opListarClientes();
-//
+stResultadoClientes opListarClientes(nodoArbol * arbol);
+
 //int opActualizarCliente(stCliente cliente,
 //                        char nombre[],
 //                        char apellido[],

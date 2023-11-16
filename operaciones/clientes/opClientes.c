@@ -187,9 +187,9 @@ nodoArbol * opBuscarCliente(nodoArbol * arbol,int arrayNroCliente[]) {
     return buscarClienteEnArbol(arbol,nroCliente);
 }
 
-//stResultadoClientes opListarClientes() {
-//    return listarClientes();
-//}
+stResultadoClientes opListarClientes(nodoArbol*arbol) {
+    return listarClientes(arbol);
+}
 //
 //int opActualizarCliente(stCliente cliente,
 //                        char nombre[], char apellido[], char dni[], char email[], char domicilio[], char telefono[]) {

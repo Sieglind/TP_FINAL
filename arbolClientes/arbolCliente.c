@@ -3,6 +3,12 @@
 #include <math.h>
 #include "arbolCliente.h"
 
+void extraerClientesDeArchivo(int cantidadClientes, stCliente clientes[]);
+
+int contarNodosArbol(nodoArbol *arbol);
+
+void cargarArbolEnArreglo(nodoArbol *arbol, int *posicion,stCliente*clientes);
+
 nodoArbol *nuevoArbol() {
     return NULL;
 }
@@ -34,13 +40,17 @@ nodoArbol *agregarClienteAlArbol(nodoArbol *arbol, nodoArbol *nuevo) {
 nodoArbol *cargarClientesEnArbol(nodoArbol *arbol) {
     int cantidadClientes = calcularCantidadDeEstructuras(ARCHIVO_CLIENTES, sizeof(stCliente));
     stCliente clientes[cantidadClientes];
+    extraerClientesDeArchivo(cantidadClientes, clientes);
+    arbol = arregloAArbolBalanceado(clientes, 0, cantidadClientes - 1, arbol);
+    return arbol;
+}
+
+void extraerClientesDeArchivo(int cantidadClientes, stCliente clientes[]) {
     FILE *archivoCLientes = fopen(ARCHIVO_CLIENTES, "rb");
     if (archivoCLientes) {
         fread(clientes, sizeof(stCliente), cantidadClientes, archivoCLientes);
         fclose(archivoCLientes);
     }
-    arbol = arregloAArbolBalanceado(clientes, 0, cantidadClientes - 1, arbol);
-    return arbol;
 }
 
 int calcularCantidadDeEstructuras(char nombreArchivo[], int tamanioEstructura) {
@@ -133,13 +143,42 @@ nodoArbol *agregrarMovimientosAArbol(nodoArbol *arbol, stMovimiento movimientos[
     return arbol;
 }
 
-int obtenerNuevoIdCliente (nodoArbol* arbol){
-    if(arbol){
-        if(arbol->derecha == NULL)
-            return arbol->cliente.id+1;
-        else{
+int obtenerNuevoIdCliente(nodoArbol *arbol) {
+    if (arbol) {
+        if (arbol->derecha == NULL)
+            return arbol->cliente.id + 1;
+        else {
             return obtenerNuevoIdCliente(arbol->derecha);
         }
     }
     return 0;
+}
+
+stResultadoClientes listarClientes(nodoArbol *arbol) {
+    int cantidad = contarNodosArbol(arbol);
+    stCliente *resultados = (stCliente *) malloc(sizeof(stCliente) * cantidad);
+    int posicion = 0;
+    cargarArbolEnArreglo(arbol,&posicion,resultados);
+    stResultadoClientes resultado;
+    resultado.resultados = resultados;
+    resultado.cantidad = cantidad;
+    resultado.status = 200;
+    return resultado;
+}
+
+void cargarArbolEnArreglo(nodoArbol *arbol, int *posicion,stCliente*clientes) {
+    if(arbol){
+        cargarArbolEnArreglo(arbol->izquierda,posicion,clientes);
+        cargarArbolEnArreglo(arbol->derecha,posicion,clientes);
+        clientes[*posicion] = arbol->cliente;
+        *posicion = *posicion+1;
+    }
+}
+
+int contarNodosArbol(nodoArbol *arbol) {
+    if (arbol) {
+        return 1 + contarNodosArbol(arbol->izquierda) + contarNodosArbol(arbol->derecha);
+    } else {
+        return 0;
+    }
 }

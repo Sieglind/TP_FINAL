@@ -263,26 +263,26 @@ int menuResultadosClientes(stResultadoClientes resultado) {
     return 0;
 }
 
-//int menuListarClientes(nodoArbol *arbol) {
-//    stResultadoClientes resultado = opListarClientes();
-//    switch (resultado.status) {
-//        case 200:
-//            menuResultadosClientes(resultado);
-//            free(resultado.resultados);
-//            break;
-//        case 404:
-//            gotoxy(23, 3);
-//            printf("%-80s", "No se encontraron registros");
-//            getch();
-//            break;
-//        case 500:
-//            gotoxy(23, 3);
-//            printf("%-80s", "Error desconocido");
-//            getch();
-//            break;
-//    }
-//    return 0;
-//}
+int menuListarClientes(nodoArbol *arbol) {
+    stResultadoClientes resultado = opListarClientes(arbol);
+    switch (resultado.status) {
+        case 200:
+            menuResultadosClientes(resultado);
+            free(resultado.resultados);
+            break;
+        case 404:
+            gotoxy(23, 3);
+            printf("%-80s", "No se encontraron registros");
+            getch();
+            break;
+        case 500:
+            gotoxy(23, 3);
+            printf("%-80s", "Error desconocido");
+            getch();
+            break;
+    }
+    return 0;
+}
 
 //int menuActualizarCliente(nodoArbol *arbol) {
 //    int arrayNroCliente[8];
@@ -383,9 +383,9 @@ int menuClientes() {
             case 43:
                 opcion = menuBuscarCliente(arbol);
                 break;
-//            case 58:
-//                opcion = menuListarClientes(arbol);
-//                break;
+            case 58:
+                opcion = menuListarClientes(arbol);
+                break;
 //            case 73:
 //                opcion = menuActualizarCliente(arbol);
 //                break;
