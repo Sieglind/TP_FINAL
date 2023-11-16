@@ -1,1 +1,1 @@
-//int menuOtros();
+int menuOtros();

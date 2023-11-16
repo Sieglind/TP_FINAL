@@ -22,28 +22,11 @@ typedef struct{
     int cantidad;
     stMovimiento * resultados;
 } stResultadoMovimientos;
-//
-//
-///**
-// * @brief Persiste los movimientos presentes en el arreglo "movimientos"
-// * @param vMovimientos Cantidad de movimientos presentes en el arreglo "movimientos"
-// * @param movimientos Arreglo conteniendo los movimientos a persisitir
-// */
-//int persistirMovimientosIniciales(int vMovimientos,stMovimiento movimientos[vMovimientos]);
-//
+
+int persistirMovimientosIniciales(int vMovimientos,stMovimiento movimientos[vMovimientos]);
+
 //int implementarBusquedaPorCuenta(FILE *archivo, int idCuenta, stMovimiento *movimientos);
 //
-///**
-// * @brief Busca los movimientos existentes, si los hay, que esten asociados a la cuenta identificada por el parametro
-// * "idCuenta"
-// * @param idCuenta El id de la cuenta de la que se quiere obtener los movimientos
-// * @return stResultado Una estructura stResultado que representa el resultado de haber realizado la busqueda requerida
-// */
 //stResultadoMovimientos buscarMovimientosPorCuenta(int idCuenta);
 //
-///**
-// * @brief Cambia el valor del atributo "eliminado" a todos los movimientos que esten asociados a la cuenta identificada
-// * por el parametro "idCuenta"
-// * @param idCuenta El id de la cuenta de la que se quiere eliminar los movimientos
-// */
 //void eliminarMovimientosPorCuenta(int idCuenta);

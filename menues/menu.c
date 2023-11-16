@@ -29,8 +29,8 @@ void menuPrincipal(){
 //            case 79:
 //                opcion = menuMovimientos();
 //                break;
-//            case 99:
-//                opcion = menuOtros();
+            case 99:
+                opcion = menuOtros();
         }
     }
 }

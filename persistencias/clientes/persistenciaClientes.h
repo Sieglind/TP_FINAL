@@ -22,8 +22,8 @@ typedef struct {
     stCliente *resultados;
 } stResultadoClientes;
 
-//int persistirClientesIniciales(int vClientes, stCliente clientes[vClientes]);
-//
+int persistirClientesIniciales(int vClientes, stCliente clientes[vClientes]);
+
 //int obtenerNuevoIdCliente();
 //
 //int persistirClienteNuevo(stCliente cliente);

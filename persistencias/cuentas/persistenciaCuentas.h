@@ -21,8 +21,8 @@ typedef struct {
     stCuenta * resultados;
 } stResultadoCuentas;
 
-//int persistirCuentasIniciales(int vCuentas,stCuenta cuentas[vCuentas]);
-//
+int persistirCuentasIniciales(int vCuentas,stCuenta cuentas[vCuentas]);
+
 //int obtenerNuevoIdCuenta();
 //
 //int persistirCuentaNueva(stCuenta cuenta);

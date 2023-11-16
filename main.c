@@ -7,7 +7,5 @@ int main() {
 
     menuPrincipal();
 
-    system("pause");
-
     return 0;
 }

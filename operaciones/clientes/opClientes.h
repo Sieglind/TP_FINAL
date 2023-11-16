@@ -1,6 +1,6 @@
 #include "../../arbolClientes/arbolCliente.h"
 
-//int opInicializarClientes(int idClientes[100]);
+int opInicializarClientes(int idClientes[100]);
 
 int opValidarString(const char string[]);
 

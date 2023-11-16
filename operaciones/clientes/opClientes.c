@@ -56,54 +56,54 @@
                     "San Ignacio de Loyola", "Cervantes", "Solis", "Jorge Newbery","San Benito", "Carlos Pellegrini",  \
                     "Calderon de la Barca"}
 
-//void generarDni(char dni[10]) {
-//    int dniRandom = 0;
-//    for (int i = 0; i < 9; i++) {
-//        dniRandom += (rand() % 10) * (int) pow(10, i);
-//    }
-//    sprintf(dni, "%d", dniRandom);
-//}
-//
-//void generarEmail(stCliente *cliente) {
-//    char domains[2][8] = {"gmail", "hotmail"};
-//    sprintf(cliente->email, "%c.%s@%s.com", tolower(cliente->nombre[0]), strlwr(cliente->apellido),
-//            domains[rand() % 2]);
-//}
-//
-//void generarDomicilio(stCliente *cliente) {
-//    char calles[130][21] = CALLES;
-//    sprintf(cliente->domicilio, "%s , %05d.", calles[rand() % 130], rand() % 10000);
-//}
-//
-//void generarTelefono(stCliente *cliente) {
-//    sprintf(cliente->telefono, "%d-%d%d", (rand() % 3890) + 10, (rand() % 5) + 1, rand() % 999999);
-//}
-//
-//int opInicializarClientes(int idClientes[50]) {
-//    stCliente clientes[50];
-//    char nombres[140][13] = NOMBRES;
-//    char apellidos[140][13] = APELLIDOS;
-//
-//    for (int i = 0; i < 50; i++) {
-//        stCliente cliente;
-//        cliente.id = i;
-//        cliente.nroCliente = ID_INICIAL_CLIENTES + i;
-//        idClientes[i] = cliente.nroCliente;
-//        strcpy(cliente.nombre, nombres[rand() % 140]);
-//        strcpy(cliente.apellido, apellidos[rand() % 140]);
-//        generarDni(cliente.dni);
-//        generarEmail(&cliente);
-//        generarDomicilio(&cliente);
-//        generarTelefono(&cliente);
-//        cliente.eliminado = 0;
-//        clientes[i] = cliente;
-//        gotoxy(25, 13);
-//        printf("%d | %d ", cliente.id, cliente.nroCliente);
-//        usleep(1000000 / 50);
-//    }
-//    return persistirClientesIniciales(50, clientes);
-//}
-//
+void generarDni(char dni[10]) {
+    int dniRandom = 0;
+    for (int i = 0; i < 9; i++) {
+        dniRandom += (rand() % 10) * (int) pow(10, i);
+    }
+    sprintf(dni, "%d", dniRandom);
+}
+
+void generarEmail(stCliente *cliente) {
+    char domains[2][8] = {"gmail", "hotmail"};
+    sprintf(cliente->email, "%c.%s@%s.com", tolower(cliente->nombre[0]), strlwr(cliente->apellido),
+            domains[rand() % 2]);
+}
+
+void generarDomicilio(stCliente *cliente) {
+    char calles[130][21] = CALLES;
+    sprintf(cliente->domicilio, "%s , %05d.", calles[rand() % 130], rand() % 10000);
+}
+
+void generarTelefono(stCliente *cliente) {
+    sprintf(cliente->telefono, "%d-%d%d", (rand() % 3890) + 10, (rand() % 5) + 1, rand() % 999999);
+}
+
+int opInicializarClientes(int idClientes[50]) {
+    stCliente clientes[50];
+    char nombres[140][13] = NOMBRES;
+    char apellidos[140][13] = APELLIDOS;
+
+    for (int i = 0; i < 50; i++) {
+        stCliente cliente;
+        cliente.id = i;
+        cliente.nroCliente = ID_INICIAL_CLIENTES + i;
+        idClientes[i] = cliente.nroCliente;
+        strcpy(cliente.nombre, nombres[rand() % 140]);
+        strcpy(cliente.apellido, apellidos[rand() % 140]);
+        generarDni(cliente.dni);
+        generarEmail(&cliente);
+        generarDomicilio(&cliente);
+        generarTelefono(&cliente);
+        cliente.eliminado = 0;
+        clientes[i] = cliente;
+        gotoxy(25, 13);
+        printf("%d | %d ", cliente.id, cliente.nroCliente);
+        usleep(1000000 / 50);
+    }
+    return persistirClientesIniciales(50, clientes);
+}
+
 int opValidarString(const char string[]) {
     int validez = 1;
     int longitud = strlen(string);
