@@ -12,4 +12,8 @@ nodoLista *nuevoNodoLista(stMovimiento movimiento);
 
 nodoLista *agregarALPrincipio(nodoLista *lista, nodoLista *nodo);
 
+int contarMovimientosEnArchivo();
+
+void extraerMovimientosDesdeArchivo(int cantidadMovimientos, stMovimiento movimientos[]);
+
 void eliminarLista(nodoLista * lista);

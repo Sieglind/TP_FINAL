@@ -21,6 +21,8 @@ int navegarMenuCuentas();
 int menuCuentas() {
     int opcion = 0;
     int vCeldas = contarCuentasEnArchivo();
+    celda celdas[vCeldas];
+    cargarCuentasEnArreglo(vCeldas,celdas);
     while (opcion != ESCAPE) {
         switch (opcion) {
             case 0:

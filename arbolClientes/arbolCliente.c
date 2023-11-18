@@ -80,8 +80,7 @@ nodoArbol *arregloAArbolBalanceado(stCliente arreglo[], int inicio, int fin, nod
 }
 
 nodoArbol *cargarCuentasEnArbol(nodoArbol *arbol) {
-    int cantidadDeCuentas = calcularCantidadDeEstructuras(ARCHIVO_CUENTAS,
-                                                          sizeof(stCuenta));
+    int cantidadDeCuentas = contarCuentasEnArchivo();
     stCuenta cuentas[cantidadDeCuentas];
 
     extraerCuentasDesdeArchivo(cantidadDeCuentas,cuentas);
@@ -119,15 +118,8 @@ nodoArbol *cargarMovimientosArbol(nodoArbol *arbol) {
     int cantMovimientos = calcularCantidadDeEstructuras(ARCHIVO_MOVIMIENTOS,
                                                         sizeof(stMovimiento));
     stMovimiento movimientos[cantMovimientos];
-    FILE *archi = fopen(ARCHIVO_MOVIMIENTOS, "rb");
-
-    if (archi) {
-        fread(movimientos, sizeof(stMovimiento), cantMovimientos, archi);
-        fclose(archi);
-    }
-
+    extraerMovimientosDesdeArchivo(cantMovimientos,movimientos);
     arbol = agregrarMovimientosAArbol(arbol, movimientos, cantMovimientos);
-
     return arbol;
 }
 
