@@ -25,6 +25,12 @@ int menuCrearCuenta(int vCeldas, celda celdas[]);
 
 int menuIngresarIdCliente(int arrayNroCliente[8], int status, char breadcrumb[]);
 
+int menuBuscarCuentas(celda celdas[], int vCeldas);
+
+int menuResultadoCuentas(stResultadoCuentas resultado);
+
+void mostrarPaginaCuentas(stResultadoCuentas resultado, int paginaActual, int paginas);
+
 int menuCuentas() {
     int opcion = 0;
     int vCeldas = contarCuentasEnArchivo();
@@ -37,11 +43,12 @@ int menuCuentas() {
                 opcion = navegarMenuCuentas();
                 break;
             case 39:
-                opcion = menuCrearCuenta(vCeldas, celdas);
+                vCeldas = menuCrearCuenta(vCeldas, celdas);
+                opcion=0;
                 break;
-//            case 59:
-//                opcion = menuBuscarCuentas();
-//                break;
+           case 59:
+               opcion = menuBuscarCuentas(celdas,vCeldas);
+                break;
 //            case 79:
 //                opcion = menuListarCuentas();
 //                break;
@@ -94,7 +101,7 @@ int menuCrearCuenta(int vCeldas, celda celdas[]) {
                 paso = menuIngresarIdCliente(arrayIdCliente, 500, BREADCRUM_CREAR);
                 break;
             case 2:
-                opGuardarNuevaCuenta(vCeldas, celdas, arrayIdCliente, tipoDeCuenta - 48);
+                vCeldas= opGuardarNuevaCuenta(vCeldas, celdas, arrayIdCliente, tipoDeCuenta - 48);
                 gotoxy(33, y);
                 printf("CUENTA CREADA CORRECTAMENTE...");
                 paso = ESCAPE;
@@ -103,7 +110,7 @@ int menuCrearCuenta(int vCeldas, celda celdas[]) {
                 break;
         }
     }
-    return 0;
+    return vCeldas;
 }
 
 int menuIngresarIdCliente(int arrayNroCliente[8], int status, char breadcrumb[]) {
@@ -120,73 +127,74 @@ int menuIngresarIdCliente(int arrayNroCliente[8], int status, char breadcrumb[])
     }
     return obtenerId(arrayNroCliente);
 }
-
-//void mostrarPaginaCuentas(stResultadoCuentas resultado, int paginaActual, int paginas) {
-//    gotoxy(23, 3);
-//    printf("%-31s", 1 < paginaActual ? PAGINA_ANTERIOR : " ");
-//    printf("%02d", paginaActual);
-//    printf("%31s", paginaActual < paginas ? PAGINA_SIGUIENTE : " ");
-//    int inicio = (24 * (paginaActual - 1));
-//    int final = paginaActual < paginas ? inicio + 24 : resultado.cantidad;
-//    int renglon = 5;
-//    char tipoDeCuenta[3][27] = {"Caja de ahorro en pesos.", "Caja de ahorro en dolares.", "Cuenta corriente en pesos."};
-//    for (int indice = inicio; indice < final; indice++) {
-//        gotoxy(2, renglon++);
-//        printf("Nro. de CLiente: %d | Nro. de Cuenta: %d | Tipo: %-26s | Mantenimiento: $%.2f",
-//               resultado.resultados[indice].idCliente,
-//               resultado.resultados[indice].nroCuenta,
-//               tipoDeCuenta[resultado.resultados[indice].tipoDeCuenta - 1],
-//               resultado.resultados[indice].costoMensual);
-//    }
-//    int lineasUsadas = final - inicio;
-//    for (int i = 24; lineasUsadas < i; i--) {
-//        gotoxy(2, renglon++);
-//        printf("%-116c", ' ');
-//    }
-//}
-//
-//int menuResultadoCuentas(stResultadoCuentas resultado) {
-//    int paginas = (resultado.cantidad / 24) + (resultado.cantidad % 24 != 0 ? 1 : 0);
-//    int paginaActual = 0;
-//    int paginaDestino = 1;
-//    int opcion = 0;
-//    while (opcion != ESCAPE) {
-//        if (paginaDestino != paginaActual) {
-//            paginaActual = paginaDestino;
-//            mostrarPaginaCuentas(resultado, paginaActual, paginas);
-//        }
-//        paginaDestino = navegarLista(paginaActual, paginas, &opcion);
-//    }
-//    return 0;
-//}
-//
-//int menuBuscarCuentas() {
-//    int arrayIdCliente[8];
-//    stResultadoCuentas resultado;
-//    int opcion = 0;
-//    while (opcion != ESCAPE) {
-//        switch (opcion) {
-//            case 0:
-//                opcion = menuIngresarIdCliente(arrayIdCliente, 200, BREADCRUMB_BUSCAR);
-//                break;
-//            case 1:
-//                resultado = opBuscarCuentas(arrayIdCliente);
-//                opcion = resultado.status;
-//                break;
-//            case 200:
-//                opcion = menuResultadoCuentas(resultado);
-//                free(resultado.resultados);
-//                break;
-//            case 404:
-//                opcion = menuIngresarIdCliente(arrayIdCliente, 404, BREADCRUMB_BUSCAR);
-//                break;
+int menuBuscarCuentas(celda celdas[], int vCeldas) {
+    int arrayIdCliente[8];
+    stResultadoCuentas resultado;
+    int opcion = 0;
+    while (opcion != ESCAPE) {
+        switch (opcion) {
+            case 0:
+                opcion = menuIngresarIdCliente(arrayIdCliente, 200, BREADCRUMB_BUSCAR);
+                break;
+            case 1:
+                resultado = opBuscarCuentas(celdas,vCeldas,arrayIdCliente);
+                opcion = resultado.status;
+                break;
+            case 200:
+                opcion = menuResultadoCuentas(resultado);
+                free(resultado.resultados);
+                break;
+            case 404:
+                opcion = menuIngresarIdCliente(arrayIdCliente, 404, BREADCRUMB_BUSCAR);
+                break;
 //            case 500:
 //                opcion = menuIngresarIdCliente(arrayIdCliente, 500, BREADCRUMB_BUSCAR);
 //                break;
-//        }
-//    }
-//    return 0;
-//}
+        }
+    }
+    return 0;
+}
+int menuResultadoCuentas(stResultadoCuentas resultado) {
+    int paginas = (resultado.cantidad / 24) + (resultado.cantidad % 24 != 0 ? 1 : 0);
+    int paginaActual = 0;
+    int paginaDestino = 1;
+    int opcion = 0;
+    while (opcion != ESCAPE) {
+        if (paginaDestino != paginaActual) {
+            paginaActual = paginaDestino;
+            mostrarPaginaCuentas(resultado, paginaActual, paginas);
+        }
+        paginaDestino = navegarLista(paginaActual, paginas, &opcion);
+    }
+    return 0;
+}
+
+void mostrarPaginaCuentas(stResultadoCuentas resultado, int paginaActual, int paginas) {
+    gotoxy(23, 3);
+    printf("%-31s", 1 < paginaActual ? PAGINA_ANTERIOR : " ");
+    printf("%02d", paginaActual);
+    printf("%31s", paginaActual < paginas ? PAGINA_SIGUIENTE : " ");
+    int inicio = (24 * (paginaActual - 1));
+    int final = paginaActual < paginas ? inicio + 24 : resultado.cantidad;
+    int renglon = 5;
+    char tipoDeCuenta[3][27] = {"Caja de ahorro en pesos.", "Caja de ahorro en dolares.", "Cuenta corriente en pesos."};
+    for (int indice = inicio; indice < final; indice++) {
+        gotoxy(2, renglon++);
+        printf("Nro. de CLiente: %d | Nro. de Cuenta: %d | Tipo: %-26s | Mantenimiento: $%.2f",
+               resultado.resultados[indice].idCliente,
+               resultado.resultados[indice].nroCuenta,
+               tipoDeCuenta[resultado.resultados[indice].tipoDeCuenta - 1],
+               resultado.resultados[indice].costoMensual);
+    }
+    int lineasUsadas = final - inicio;
+    for (int i = 24; lineasUsadas < i; i--) {
+        gotoxy(2, renglon++);
+        printf("%-116c", ' ');
+    }
+}
+
+
+
 //
 //int menuListarCuentas() {
 //    stResultadoCuentas resultado = opListarCuentas();

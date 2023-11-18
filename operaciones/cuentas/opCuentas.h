@@ -4,9 +4,10 @@ int opInicializarCuentas(int vClientes, const int idClientes[vClientes], int cue
 
 int opVerificarCliente(int arrayIdCliente[]);
 
-void opGuardarNuevaCuenta(int vCeldas, celda celdas[],int arrayIdCuenta[], int tipoDeCuenta);
+int opGuardarNuevaCuenta(int vCeldas, celda celdas[],int arrayIdCuenta[], int tipoDeCuenta);
 
-//stResultadoCuentas opBuscarCuentas(int arrayIdCliente[]);
+stResultadoCuentas opBuscarCuentas(celda celda[],int vCelda,int arrayIdCliente[]);
+
 
 //stResultadoCuentas opListarCuentas();
 

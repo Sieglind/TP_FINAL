@@ -6,6 +6,9 @@
 #include "../../utils/utils.h"
 #include "../../arbolClientes/arbolCliente.h"
 
+int contarCuentasCliente (celda celdas[], int vCelda, int idCliente);
+
+void cargarCuentasEnResultado (celda celda[], stCuenta* cuentas, int vCelda,int vCuenta,int idCLiente);
 
 int opInicializarCuentas(int vIdClientes, const int idClientes[vIdClientes], int nroCuentas[]) {
     float costoMensual[3] = {1000, 2000, 1500};
@@ -38,7 +41,7 @@ int opVerificarCliente(int arrayIdCliente[]){
     return verificarClienteExiste(idCliente);
 }
 
-void opGuardarNuevaCuenta(int vCeldas, celda celdas[],int arrayIdCuenta[], int tipoDeCuenta){
+int opGuardarNuevaCuenta(int vCeldas, celda celdas[],int arrayIdCuenta[], int tipoDeCuenta){
     int idCliente =(int) convertirArrayEnId(arrayIdCuenta);
     float costoMensual[3] = {1000, 2000, 1500};
     int id = celdas[vCeldas-1].dato.id+1;
@@ -51,12 +54,45 @@ void opGuardarNuevaCuenta(int vCeldas, celda celdas[],int arrayIdCuenta[], int t
             .eliminada=0
     };
     celdas[vCeldas++] = crearCeldaCuenta(cuenta);
+    return vCeldas;
 }
 
-//stResultadoCuentas opBuscarCuentas(int arrayIdCliente[]){
-//    int idCliente = (int) convertirIdClienteArrayAInt(arrayIdCliente);
-//    return buscarCuentasPorIdCliente(idCliente);
-//}
+stResultadoCuentas opBuscarCuentas(celda celda[],int vCelda,int arrayIdCliente[]){
+    int idCliente = convertirArrayEnId(arrayIdCliente);
+    int cantCuentas = contarCuentasCliente(celda,vCelda,idCliente);
+    stResultadoCuentas resultado;
+    if(cantCuentas !=0){
+        stCuenta* resultados = (stCuenta*) malloc(sizeof(stCuenta)*cantCuentas);
+        cargarCuentasEnResultado(celda,resultados,vCelda,cantCuentas,idCliente);
+        resultado.resultados= resultados;
+        resultado.status= 200;
+    }else{
+        resultado.status= 404;
+    }
+    resultado.cantidad= cantCuentas;
+    return resultado;
+}
+
+int contarCuentasCliente (celda celdas[], int vCelda, int idCliente){
+    int cont=0;
+    for(int i=0;i<vCelda;i++){
+        if(celdas[i].dato.idCliente == idCliente){
+            cont ++;
+        }
+    }
+    return cont;
+}
+
+void cargarCuentasEnResultado (celda celda[], stCuenta* cuentas, int vCelda,int vCuenta,int idCLiente){
+    int contarCuentas=0;
+    for(int i=0;i<vCelda;i++){
+        if(celda[i].dato.idCliente == idCLiente){
+            cuentas[contarCuentas]=celda[i].dato;
+            contarCuentas++;
+        }
+    }
+}
+
 //
 //stResultadoCuentas opListarCuentas(){
 //    return listarCuentas();
