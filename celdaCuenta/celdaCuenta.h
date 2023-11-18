@@ -1,3 +1,6 @@
+#ifndef TP_FINAL_CELDACUENTA_H
+#define TP_FINAL_CELDACUENTA_H
+
 #include "../persistencias/cuentas/persistenciaCuentas.h"
 #include "../listaMovimientos/listaMovimientos.h"
 
@@ -15,3 +18,5 @@ int contarCuentasEnArchivo();
 void cargarCuentasEnArreglo(int cantidadCuentas, celda celdas[]);
 
 void extraerCuentasDesdeArchivo(int cantidadCuentas, stCuenta cuentas[]);
+
+#endif //TP_FINAL_CELDACUENTA_H

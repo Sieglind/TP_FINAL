@@ -1,3 +1,6 @@
+#ifndef TP_FINAL_LISTAMOVIMIENTOS_H
+#define TP_FINAL_LISTAMOVIMIENTOS_H
+
 #include "../persistencias/movimientos/persistenciaMovimientos.h"
 #include <stdlib.h>
 
@@ -17,3 +20,5 @@ int contarMovimientosEnArchivo();
 void extraerMovimientosDesdeArchivo(int cantidadMovimientos, stMovimiento movimientos[]);
 
 void eliminarLista(nodoLista * lista);
+
+#endif //TP_FINAL_LISTAMOVIMIENTOS_H

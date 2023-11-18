@@ -1,12 +1,15 @@
+#include "menuCuentas.h"
+
 #include <stdio.h>
 #include <conio.h>
-#include <malloc.h>
-#include "menuCuentas.h"
+
 #include "../../interfaces/interfaces.h"
 #include "../navegacion/navegacion.h"
 #include "../../utils/gotoxy.h"
-#include "../../operaciones/clientes/opClientes.h"
+#include "../../utils/utils.h"
 #include "../../operaciones/cuentas/opCuentas.h"
+
+
 
 #define BREADCRUM_CREAR         "CUENTAS : Crear    : Ingrese el numero de cliente al que crearle una cuenta      : "
 #define BREADCRUMB_BUSCAR       "CUENTAS : Buscar   : Ingrese el numero de cliente del cual quiere buscar cuentas : "
@@ -18,20 +21,24 @@
 
 int navegarMenuCuentas();
 
+int menuCrearCuenta(int vCeldas, celda celdas[]);
+
+int menuIngresarIdCliente(int arrayNroCliente[8], int status, char breadcrumb[]);
+
 int menuCuentas() {
     int opcion = 0;
     int vCeldas = contarCuentasEnArchivo();
-    celda celdas[vCeldas];
-    cargarCuentasEnArreglo(vCeldas,celdas);
+    celda celdas[vCeldas * 2];
+    cargarCuentasEnArreglo(vCeldas, celdas);
     while (opcion != ESCAPE) {
         switch (opcion) {
             case 0:
                 cargarMenuCuentas();
                 opcion = navegarMenuCuentas();
                 break;
-//            case 39:
-//                opcion = menuCrearCuenta();
-//                break;
+            case 39:
+                opcion = menuCrearCuenta(vCeldas, celdas);
+                break;
 //            case 59:
 //                opcion = menuBuscarCuentas();
 //                break;
@@ -51,90 +58,69 @@ int navegarMenuCuentas() {
     return navegarMenu(posiciones, 4, ESCAPE);
 }
 
-//int obtenerIdCliente(int arrayIdCliente[]) {
-//    int digitos = 0;
-//    int digito;
-//    while (digitos < 8) {
-//        fflush(stdin);
-//        digito = getch();
-//        if ((48 <= digito) && (digito <= 57)) {
-//            printf("%c", digito);
-//            arrayIdCliente[digitos] = digito - 48;
-//            digitos++;
-//        } else if (digito == ESCAPE) {
-//            return ESCAPE;
-//        }
-//    }
-//    return 1;
-//}
-//
-//int menuIngresarIdCliente(int arrayNroCliente[8], int status, char breadcrumb[]) {
-//    if (status == 200) {
-//        gotoxy(19, 2);
-//        printf("%-90s", breadcrumb);
-//        gotoxy(whereX() - 8, whereY());
-//    } else {
-//        gotoxy(whereX() - 8, 2);
-//        printf("%8s", " ");
-//        gotoxy(19, 3);
-//        printf("%-61s", status == 404 ? MENSAJE_NO_ENCONTRADO : MENSAJE_ERROR);
-//        gotoxy(102, 2);
-//    }
-//    return obtenerIdCliente(arrayNroCliente);
-//}
-//
-//int menuCrearCuenta() {
-//    int arrayIdCliente[8];
-//    int tipoDeCuenta = 0;
-//    int paso = 0;
-//    int y = 12;
-//    while (paso != ESCAPE) {
-//        switch (paso) {
-//            case 0:
-//                paso = menuIngresarIdCliente(arrayIdCliente, 200, BREADCRUM_CREAR);
-//                break;
-//            case 1:
-//                paso = opBuscarCliente(arrayIdCliente).status;
-//                break;
-//            case 200:
-//                gotoxy(33, y++);
-//                printf("Que tipo de cuenta desea crear?:");
-//                gotoxy(33, y++);
-//                printf("1 - Caja de ahorro en pesos.");
-//                gotoxy(33, y++);
-//                printf("2 - Caja de ahorro en dolares.");
-//                gotoxy(33, y++);
-//                printf("3 - Cuenta corriente en pesos.");
-//                gotoxy(whereX() + 3, whereX() - 4);
-//                do {
-//                    fflush(stdin);
-//                    tipoDeCuenta = getch();
-//                } while (!(48 < tipoDeCuenta && tipoDeCuenta < 52) && tipoDeCuenta != ESCAPE);
-//                paso = (tipoDeCuenta == ESCAPE) ? ESCAPE : 2;
-//                break;
-//            case 404:
-//                paso = menuIngresarIdCliente(arrayIdCliente, 404, BREADCRUM_CREAR);
-//                break;
-//            case 500:
-//                paso = menuIngresarIdCliente(arrayIdCliente, 500, BREADCRUM_CREAR);
-//                break;
-//            case 2:
-//                paso = opGuardarNuevaCuenta(arrayIdCliente, tipoDeCuenta - 48);
-//                if (paso == 200) {
-//                    gotoxy(33, y);
-//                    printf("CUENTA CREADA CORRECTAMENTE...");
-//                    paso = ESCAPE;
-//                    getch();
-//                    fflush(stdin);
-//                } else {
-//                    paso = 500;
-//                }
-//                break;
-//        }
-//    }
-//    return 0;
-//}
-//
+int menuCrearCuenta(int vCeldas, celda celdas[]) {
+    int arrayIdCliente[8];
+    int tipoDeCuenta = 0;
+    int paso = 0;
+    int y = 12;
+    while (paso != ESCAPE) {
+        switch (paso) {
+            case 0:
+                paso = menuIngresarIdCliente(arrayIdCliente, 200, BREADCRUM_CREAR);
+                break;
+            case 1:
+                paso = opVerificarCliente(arrayIdCliente);
+                break;
+            case 200:
+                gotoxy(33, y++);
+                printf("Que tipo de cuenta desea crear?:");
+                gotoxy(33, y++);
+                printf("1 - Caja de ahorro en pesos.");
+                gotoxy(33, y++);
+                printf("2 - Caja de ahorro en dolares.");
+                gotoxy(33, y++);
+                printf("3 - Cuenta corriente en pesos.");
+                gotoxy(whereX() + 3, whereX() - 4);
+                do {
+                    fflush(stdin);
+                    tipoDeCuenta = getch();
+                } while (!(48 < tipoDeCuenta && tipoDeCuenta < 52) && tipoDeCuenta != ESCAPE);
+                paso = (tipoDeCuenta == ESCAPE) ? ESCAPE : 2;
+                break;
+            case 404:
+                paso = menuIngresarIdCliente(arrayIdCliente, 404, BREADCRUM_CREAR);
+                break;
+            case 500:
+                paso = menuIngresarIdCliente(arrayIdCliente, 500, BREADCRUM_CREAR);
+                break;
+            case 2:
+                opGuardarNuevaCuenta(vCeldas, celdas, arrayIdCliente, tipoDeCuenta - 48);
+                gotoxy(33, y);
+                printf("CUENTA CREADA CORRECTAMENTE...");
+                paso = ESCAPE;
+                getch();
+                fflush(stdin);
+                break;
+        }
+    }
+    return 0;
+}
+
+int menuIngresarIdCliente(int arrayNroCliente[8], int status, char breadcrumb[]) {
+    if (status == 200) {
+        gotoxy(19, 2);
+        printf("%-90s", breadcrumb);
+        gotoxy(whereX() - 8, whereY());
+    } else {
+        gotoxy(whereX() - 8, 2);
+        printf("%8s", " ");
+        gotoxy(19, 3);
+        printf("%-61s", status == 404 ? MENSAJE_NO_ENCONTRADO : MENSAJE_ERROR);
+        gotoxy(102, 2);
+    }
+    return obtenerId(arrayNroCliente);
+}
+
 //void mostrarPaginaCuentas(stResultadoCuentas resultado, int paginaActual, int paginas) {
 //    gotoxy(23, 3);
 //    printf("%-31s", 1 < paginaActual ? PAGINA_ANTERIOR : " ");

@@ -6,7 +6,7 @@ typedef struct nodoArbol {
     struct nodoArbol *izquierda;
     struct nodoArbol *derecha;
     int vCuentas;
-    celda cuentas[3];
+    celda cuentas[20];
 } nodoArbol;
 
 nodoArbol *nuevoArbol();
@@ -28,3 +28,5 @@ int obtenerNuevoIdCliente (nodoArbol* arbol);
 stResultadoClientes listarClientes(nodoArbol * arbol);
 
 nodoArbol * eliminarClienteDeArbol(nodoArbol *arbol, int nroCliente);
+
+int verificarClienteExiste(int idClietne);

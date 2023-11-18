@@ -3,7 +3,9 @@
 #include <unistd.h>
 #include "opCuentas.h"
 #include "../../utils/gotoxy.h"
-#include "../../persistencias/cuentas/persistenciaCuentas.h"
+#include "../../utils/utils.h"
+#include "../../arbolClientes/arbolCliente.h"
+
 
 int opInicializarCuentas(int vIdClientes, const int idClientes[vIdClientes], int nroCuentas[]) {
     float costoMensual[3] = {1000, 2000, 1500};
@@ -30,30 +32,27 @@ int opInicializarCuentas(int vIdClientes, const int idClientes[vIdClientes], int
     }
     return persistirCuentasIniciales(vCuentas, cuentas);
 }
-//
-//double convertirIdClienteArrayAInt(const int arrayNroCliente[8]) {
-//    double intIdCliente = 0;
-//    for (int i = 0; i <= 7; i++) {
-//        intIdCliente = intIdCliente + (double) arrayNroCliente[i] * pow(10, 7 - i);
-//    }
-//    return intIdCliente;
-//}
-//
-//int opGuardarNuevaCuenta(int arrayIdCuenta[], int tipoDeCuenta) {
-//    int idCliente =(int) convertirIdClienteArrayAInt(arrayIdCuenta);
-//    float costoMensual[3] = {1000, 2000, 1500};
-//    int id = obtenerNuevoIdCuenta();
-//    stCuenta cuenta = {
-//            .id = id,
-//            .idCliente = idCliente,
-//            .nroCuenta = ID_INICIAL_CUENTAS + id,
-//            .tipoDeCuenta=tipoDeCuenta,
-//            .costoMensual=costoMensual[tipoDeCuenta - 1],
-//            .eliminada=0
-//    };
-//    return persistirCuentaNueva(cuenta);
-//}
-//
+
+int opVerificarCliente(int arrayIdCliente[]){
+    int idCliente = convertirArrayEnId(arrayIdCliente);
+    return verificarClienteExiste(idCliente);
+}
+
+void opGuardarNuevaCuenta(int vCeldas, celda celdas[],int arrayIdCuenta[], int tipoDeCuenta){
+    int idCliente =(int) convertirArrayEnId(arrayIdCuenta);
+    float costoMensual[3] = {1000, 2000, 1500};
+    int id = celdas[vCeldas-1].dato.id+1;
+    stCuenta cuenta = {
+            .id = id,
+            .idCliente = idCliente,
+            .nroCuenta = ID_INICIAL_CUENTAS + id,
+            .tipoDeCuenta=tipoDeCuenta,
+            .costoMensual=costoMensual[tipoDeCuenta - 1],
+            .eliminada=0
+    };
+    celdas[vCeldas++] = crearCeldaCuenta(cuenta);
+}
+
 //stResultadoCuentas opBuscarCuentas(int arrayIdCliente[]){
 //    int idCliente = (int) convertirIdClienteArrayAInt(arrayIdCliente);
 //    return buscarCuentasPorIdCliente(idCliente);

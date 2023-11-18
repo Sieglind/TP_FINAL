@@ -1,3 +1,10 @@
+//
+// Created by moral on 18/11/2023.
+//
+
+#ifndef TP_FINAL_PERSISTENCIACUENTAS_H
+#define TP_FINAL_PERSISTENCIACUENTAS_H
+
 #include <stdio.h>
 
 #define ARCHIVO_CUENTAS "cuentas.dat"
@@ -34,3 +41,5 @@ int persistirCuentasIniciales(int vCuentas,stCuenta cuentas[vCuentas]);
 //stResultadoCuentas listarCuentas();
 //
 //int persistirCuentaEliminada(int idCliente);
+
+#endif //TP_FINAL_PERSISTENCIACUENTAS_H

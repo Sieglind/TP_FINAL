@@ -42,7 +42,7 @@ void agregarMovimientosACeldas(int cantidadCeldas, celda celdas[]) {
     stMovimiento movimientos[cantidadMovimientos];
     extraerMovimientosDesdeArchivo(cantidadMovimientos, movimientos);
     for (int i = 0; i < cantidadCeldas; i++) {
-        for (int j = cantidadMovimientos - 1; j <= 0; j--) {
+        for (int j = cantidadMovimientos - 1; 0 <= j; j--) {
             if (celdas[i].dato.nroCuenta == movimientos[j].idCuenta) {
                 celdas[i].listaMovimiento = agregarALPrincipio(celdas[i].listaMovimiento,
                                                                nuevoNodoLista(movimientos[j]));

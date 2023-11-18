@@ -1,3 +1,10 @@
+//
+// Created by moral on 18/11/2023.
+//
+
+#ifndef TP_FINAL_PERSISTENCIAMOVIMIENTOS_H
+#define TP_FINAL_PERSISTENCIAMOVIMIENTOS_H
+
 #include <stdio.h>
 
 #define ARCHIVO_MOVIMIENTOS "movimientos.dat"
@@ -30,3 +37,5 @@ int persistirMovimientosIniciales(int vMovimientos,stMovimiento movimientos[vMov
 //stResultadoMovimientos buscarMovimientosPorCuenta(int idCuenta);
 //
 //void eliminarMovimientosPorCuenta(int idCuenta);
+
+#endif //TP_FINAL_PERSISTENCIAMOVIMIENTOS_H

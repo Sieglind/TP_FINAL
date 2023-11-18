@@ -226,4 +226,20 @@ void liberarMemoriaDeNodo(nodoArbol *nodo) {
     for (int i = 0; i < nodo->vCuentas; i++) {
         liberarMemoriaDeCelda(nodo->cuentas[i]);
     }
+    free(nodo);
+}
+
+int verificarClienteExiste(int idClietne){
+    FILE* archivoCliente = fopen(ARCHIVO_CLIENTES,"rb");
+    int encontrado = 404;
+    if(archivoCliente){
+        stCliente cliente;
+        while (fread(&cliente, sizeof(stCliente),1,archivoCliente) == 1 && encontrado == 404){
+            if(cliente.nroCliente == idClietne) encontrado = 200;
+        }
+        fclose(archivoCliente);
+    } else {
+        encontrado = 500;
+    }
+    return encontrado;
 }
