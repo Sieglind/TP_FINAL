@@ -1,1 +1,1 @@
-//int menuCuentas();
+int menuCuentas();

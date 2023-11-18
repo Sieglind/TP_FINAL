@@ -9,3 +9,9 @@ typedef struct {
 celda crearCeldaCuenta(stCuenta cuenta);
 
 void liberarMemoriaDeCelda(celda cuenta);
+
+int contarCuentasEnArchivo();
+
+void cargarCuentasEnArreglo(int cantidadCuentas, celda celdas[]);
+
+void extraerCuentasDesdeArchivo(int cantidadCuentas, stCuenta cuentas[]);

@@ -1,10 +1,9 @@
 #include "arbolCliente.h"
 
 #include <stdio.h>
-#include <sys/stat.h>
 #include <math.h>
 
-int calcularCantidadDeEstructuras(char nombreArchivo[], int tamanioEstructura);
+#include "../utils/utils.h"
 
 void extraerClientesDeArchivo(int cantidadClientes, stCliente clientes[]);
 
@@ -53,20 +52,12 @@ nodoArbol *agregarClienteAlArbol(nodoArbol *arbol, nodoArbol *nuevo) {
 }
 
 nodoArbol *cargarClientesEnArbol(nodoArbol *arbol) {
-    int cantidadClientes = calcularCantidadDeEstructuras(ARCHIVO_CLIENTES, sizeof(stCliente));
+    int cantidadClientes = calcularCantidadDeEstructuras(ARCHIVO_CLIENTES,
+                                                         sizeof(stCliente));
     stCliente clientes[cantidadClientes];
     extraerClientesDeArchivo(cantidadClientes, clientes);
     arbol = arregloAArbolBalanceado(clientes, 0, cantidadClientes - 1, arbol);
     return arbol;
-}
-
-int calcularCantidadDeEstructuras(char nombreArchivo[], int tamanioEstructura) {
-    struct stat status;
-    if (stat(nombreArchivo, &status) == 0) {
-        return status.st_size / tamanioEstructura;
-    } else {
-        return -1;
-    }
 }
 
 void extraerClientesDeArchivo(int cantidadClientes, stCliente clientes[]) {
@@ -89,15 +80,12 @@ nodoArbol *arregloAArbolBalanceado(stCliente arreglo[], int inicio, int fin, nod
 }
 
 nodoArbol *cargarCuentasEnArbol(nodoArbol *arbol) {
-    int cantidadDeCuentas = calcularCantidadDeEstructuras(ARCHIVO_CUENTAS, sizeof(stCuenta));
+    int cantidadDeCuentas = calcularCantidadDeEstructuras(ARCHIVO_CUENTAS,
+                                                          sizeof(stCuenta));
     stCuenta cuentas[cantidadDeCuentas];
 
-    FILE *archivoCuentas = fopen(ARCHIVO_CUENTAS, "rb");
+    extraerCuentasDesdeArchivo(cantidadDeCuentas,cuentas);
 
-    if (archivoCuentas) {
-        fread(cuentas, sizeof(stCuenta), cantidadDeCuentas, archivoCuentas);
-        fclose(archivoCuentas);
-    }
     for (int i = 0; i < cantidadDeCuentas; i++) {
         nodoArbol *cliente = buscarClienteEnArbol(arbol, cuentas[i].idCliente);
         if (cliente) {
@@ -128,7 +116,8 @@ nodoArbol *buscarClienteEnArbol(nodoArbol *arbol, int nroCliente) {
 }
 
 nodoArbol *cargarMovimientosArbol(nodoArbol *arbol) {
-    int cantMovimientos = calcularCantidadDeEstructuras(ARCHIVO_MOVIMIENTOS, sizeof(stMovimiento));
+    int cantMovimientos = calcularCantidadDeEstructuras(ARCHIVO_MOVIMIENTOS,
+                                                        sizeof(stMovimiento));
     stMovimiento movimientos[cantMovimientos];
     FILE *archi = fopen(ARCHIVO_MOVIMIENTOS, "rb");
 

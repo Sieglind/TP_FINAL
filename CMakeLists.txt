@@ -7,4 +7,6 @@ add_executable(TP_FINAL main.c interfaces/interfaces.c interfaces/interfaces.h u
         listaMovimientos/listaMovimientos.c
         listaMovimientos/listaMovimientos.h
         arbolClientes/arbolCliente.c
-        celdaCuenta/celdaCuenta.c)
+        celdaCuenta/celdaCuenta.c
+        utils/utils.c
+        utils/utils.h)

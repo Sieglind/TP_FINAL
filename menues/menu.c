@@ -19,9 +19,9 @@ void menuPrincipal() {
             case 18:
                 opcion = menuClientes();
                 break;
-//            case 38:
-//                opcion = menuCuentas();
-//                break;
+            case 38:
+                opcion = menuCuentas();
+                break;
 //            case 79:
 //                opcion = menuMovimientos();
 //                break;

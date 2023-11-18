@@ -1,26 +1,54 @@
-//#include <stdio.h>
-//#include <conio.h>
-//#include <malloc.h>
-//#include "menuCuentas.h"
-//#include "../../interfaces/interfaces.h"
-//#include "../navegacion/navegacion.h"
-//#include "../../utils/gotoxy.h"
-//#include "../../operaciones/clientes/opClientes.h"
-//#include "../../operaciones/cuentas/opCuentas.h"
-//
-//#define BREADCRUM_CREAR         "CUENTAS : Crear    : Ingrese el numero de cliente al que crearle una cuenta      : "
-//#define BREADCRUMB_BUSCAR       "CUENTAS : Buscar   : Ingrese el numero de cliente del cual quiere buscar cuentas : "
-//#define BREADCRUMB_ELIMINAR     "CUENTAS : Eliminar : Ingrese un numero de cuenta para borrar                     : "
-//#define MENSAJE_NO_ENCONTRADO   "No se encontro una cuenta ascoiada a dicho numero de cuenta."
-//#define MENSAJE_ERROR           "Error desconocido."
-//#define PAGINA_ANTERIOR         "<-- Pagina Anterior"
-//#define PAGINA_SIGUIENTE        "Pagina Siguiente -->"
-//
-//int navegarMenuCuentas() {
-//    int posiciones[] = {39, 59, 79, 99};
-//    return navegarMenu(posiciones, 4, ESCAPE);
-//}
-//
+#include <stdio.h>
+#include <conio.h>
+#include <malloc.h>
+#include "menuCuentas.h"
+#include "../../interfaces/interfaces.h"
+#include "../navegacion/navegacion.h"
+#include "../../utils/gotoxy.h"
+#include "../../operaciones/clientes/opClientes.h"
+#include "../../operaciones/cuentas/opCuentas.h"
+
+#define BREADCRUM_CREAR         "CUENTAS : Crear    : Ingrese el numero de cliente al que crearle una cuenta      : "
+#define BREADCRUMB_BUSCAR       "CUENTAS : Buscar   : Ingrese el numero de cliente del cual quiere buscar cuentas : "
+#define BREADCRUMB_ELIMINAR     "CUENTAS : Eliminar : Ingrese un numero de cuenta para borrar                     : "
+#define MENSAJE_NO_ENCONTRADO   "No se encontro una cuenta ascoiada a dicho numero de cuenta."
+#define MENSAJE_ERROR           "Error desconocido."
+#define PAGINA_ANTERIOR         "<-- Pagina Anterior"
+#define PAGINA_SIGUIENTE        "Pagina Siguiente -->"
+
+int navegarMenuCuentas();
+
+int menuCuentas() {
+    int opcion = 0;
+    int vCeldas = contarCuentasEnArchivo();
+    while (opcion != ESCAPE) {
+        switch (opcion) {
+            case 0:
+                cargarMenuCuentas();
+                opcion = navegarMenuCuentas();
+                break;
+//            case 39:
+//                opcion = menuCrearCuenta();
+//                break;
+//            case 59:
+//                opcion = menuBuscarCuentas();
+//                break;
+//            case 79:
+//                opcion = menuListarCuentas();
+//                break;
+//            case 99:
+//                opcion = menuBorrarCuenta();
+//                break;
+        }
+    }
+    return 0;
+}
+
+int navegarMenuCuentas() {
+    int posiciones[] = {39, 59, 79, 99};
+    return navegarMenu(posiciones, 4, ESCAPE);
+}
+
 //int obtenerIdCliente(int arrayIdCliente[]) {
 //    int digitos = 0;
 //    int digito;
@@ -215,31 +243,6 @@
 //                break;
 //            case 500:
 //                opcion = menuIngresarIdCliente(arrayNroCuenta, 500, BREADCRUMB_ELIMINAR);
-//                break;
-//        }
-//    }
-//    return 0;
-//}
-//
-//int menuCuentas() {
-//    int opcion = 0;
-//    while (opcion != ESCAPE) {
-//        switch (opcion) {
-//            case 0:
-//                cargarMenuCuentas();
-//                opcion = navegarMenuCuentas();
-//                break;
-//            case 39:
-//                opcion = menuCrearCuenta();
-//                break;
-//            case 59:
-//                opcion = menuBuscarCuentas();
-//                break;
-//            case 79:
-//                opcion = menuListarCuentas();
-//                break;
-//            case 99:
-//                opcion = menuBorrarCuenta();
 //                break;
 //        }
 //    }

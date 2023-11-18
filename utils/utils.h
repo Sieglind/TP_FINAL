@@ -1,0 +1,1 @@
+int calcularCantidadDeEstructuras(char nombreArchivo[], int tamanioEstructura);
