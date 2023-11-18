@@ -1,4 +1,5 @@
 #include "menu.h"
+
 #include "../interfaces/interfaces.h"
 #include "navegacion/navegacion.h"
 #include "clientes/menuClientes.h"
@@ -6,14 +7,9 @@
 #include "movimientos/menuMovimientos.h"
 #include "otros/menuOtros.h"
 
+int navegarMenuPrincipal();
 
-int navegarMenuPrincipal() {
-    cargarMenuPrincipal();
-    int posiciones[] = {18,38,79,99};
-    return navegarMenu(posiciones, 4, ESCAPE);
-}
-
-void menuPrincipal(){
+void menuPrincipal() {
     int opcion = 0;
     while (opcion != ESCAPE) {
         switch (opcion) {
@@ -33,4 +29,10 @@ void menuPrincipal(){
                 opcion = menuOtros();
         }
     }
+}
+
+int navegarMenuPrincipal() {
+    cargarMenuPrincipal();
+    int posiciones[] = {18, 38, 79, 99};
+    return navegarMenu(posiciones, 4, ESCAPE);
 }

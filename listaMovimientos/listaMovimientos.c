@@ -15,3 +15,11 @@ nodoLista *agregarALPrincipio(nodoLista *lista, nodoLista *nodo) {
     if (lista) nodo->siguiente = lista;
     return nodo;
 }
+
+void eliminarLista(nodoLista * lista){
+    if(lista && lista->siguiente){
+        eliminarLista(lista->siguiente);
+    } else {
+        free(lista);
+    }
+}

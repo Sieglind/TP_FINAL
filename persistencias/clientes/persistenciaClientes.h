@@ -23,15 +23,3 @@ typedef struct {
 } stResultadoClientes;
 
 int persistirClientesIniciales(int vClientes, stCliente clientes[vClientes]);
-
-//int obtenerNuevoIdCliente();
-//
-//int persistirClienteNuevo(stCliente cliente);
-//
-//stResultadoClientes buscarClientePorNroCliente(int nroCliente);
-//
-//stResultadoClientes listarClientes();
-//
-//int persistirActualizacion(stCliente cliente);
-//
-//int persistirClienteEliminado(int nroCliente);

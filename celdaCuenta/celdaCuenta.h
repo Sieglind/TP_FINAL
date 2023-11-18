@@ -1,4 +1,3 @@
-
 #include "../persistencias/cuentas/persistenciaCuentas.h"
 #include "../listaMovimientos/listaMovimientos.h"
 
@@ -9,4 +8,4 @@ typedef struct {
 
 celda crearCeldaCuenta(stCuenta cuenta);
 
-
+void liberarMemoriaDeCelda(celda cuenta);

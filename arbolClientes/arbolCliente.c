@@ -1,13 +1,28 @@
+#include "arbolCliente.h"
+
 #include <stdio.h>
 #include <sys/stat.h>
 #include <math.h>
-#include "arbolCliente.h"
+
+int calcularCantidadDeEstructuras(char nombreArchivo[], int tamanioEstructura);
 
 void extraerClientesDeArchivo(int cantidadClientes, stCliente clientes[]);
 
+nodoArbol *arregloAArbolBalanceado(stCliente arreglo[], int inicio, int fin, nodoArbol *arbol);
+
+nodoArbol *agregrarMovimientosAArbol(nodoArbol *arbol, stMovimiento movimientos[], int cantMovimientos);
+
 int contarNodosArbol(nodoArbol *arbol);
 
-void cargarArbolEnArreglo(nodoArbol *arbol, int *posicion,stCliente*clientes);
+void cargarArbolEnArreglo(nodoArbol *arbol, int *posicion, stCliente *clientes);
+
+nodoArbol *nodoMasDerecho(nodoArbol *nodo);
+
+nodoArbol *nodoMasIzquierdo(nodoArbol *nodo);
+
+int esHoja(nodoArbol *nodo);
+
+void liberarMemoriaDeNodo(nodoArbol *nodo);
 
 nodoArbol *nuevoArbol() {
     return NULL;
@@ -45,20 +60,20 @@ nodoArbol *cargarClientesEnArbol(nodoArbol *arbol) {
     return arbol;
 }
 
-void extraerClientesDeArchivo(int cantidadClientes, stCliente clientes[]) {
-    FILE *archivoCLientes = fopen(ARCHIVO_CLIENTES, "rb");
-    if (archivoCLientes) {
-        fread(clientes, sizeof(stCliente), cantidadClientes, archivoCLientes);
-        fclose(archivoCLientes);
-    }
-}
-
 int calcularCantidadDeEstructuras(char nombreArchivo[], int tamanioEstructura) {
     struct stat status;
     if (stat(nombreArchivo, &status) == 0) {
         return status.st_size / tamanioEstructura;
     } else {
         return -1;
+    }
+}
+
+void extraerClientesDeArchivo(int cantidadClientes, stCliente clientes[]) {
+    FILE *archivoCLientes = fopen(ARCHIVO_CLIENTES, "rb");
+    if (archivoCLientes) {
+        fread(clientes, sizeof(stCliente), cantidadClientes, archivoCLientes);
+        fclose(archivoCLientes);
     }
 }
 
@@ -158,7 +173,7 @@ stResultadoClientes listarClientes(nodoArbol *arbol) {
     int cantidad = contarNodosArbol(arbol);
     stCliente *resultados = (stCliente *) malloc(sizeof(stCliente) * cantidad);
     int posicion = 0;
-    cargarArbolEnArreglo(arbol,&posicion,resultados);
+    cargarArbolEnArreglo(arbol, &posicion, resultados);
     stResultadoClientes resultado;
     resultado.resultados = resultados;
     resultado.cantidad = cantidad;
@@ -166,19 +181,68 @@ stResultadoClientes listarClientes(nodoArbol *arbol) {
     return resultado;
 }
 
-void cargarArbolEnArreglo(nodoArbol *arbol, int *posicion,stCliente*clientes) {
-    if(arbol){
-        cargarArbolEnArreglo(arbol->izquierda,posicion,clientes);
-        cargarArbolEnArreglo(arbol->derecha,posicion,clientes);
-        clientes[*posicion] = arbol->cliente;
-        *posicion = *posicion+1;
-    }
-}
-
 int contarNodosArbol(nodoArbol *arbol) {
     if (arbol) {
         return 1 + contarNodosArbol(arbol->izquierda) + contarNodosArbol(arbol->derecha);
     } else {
         return 0;
+    }
+}
+
+void cargarArbolEnArreglo(nodoArbol *arbol, int *posicion, stCliente *clientes) {
+    if (arbol) {
+        cargarArbolEnArreglo(arbol->izquierda, posicion, clientes);
+        clientes[*posicion] = arbol->cliente;
+        *posicion = *posicion + 1;
+        cargarArbolEnArreglo(arbol->derecha, posicion, clientes);
+
+    }
+}
+
+nodoArbol *eliminarClienteDeArbol(nodoArbol *arbol, int nroCliente) {
+    if (arbol) {
+        if (nroCliente == arbol->cliente.nroCliente) {
+            if (arbol->izquierda) {
+                nodoArbol *masDerecho = nodoMasDerecho(arbol->izquierda);
+                arbol->cliente.nroCliente = masDerecho->cliente.nroCliente;
+                arbol->izquierda = eliminarClienteDeArbol(arbol->izquierda, masDerecho->cliente.nroCliente);
+            } else {
+                if (arbol->derecha) {
+                    nodoArbol *masIzquierdo = nodoMasIzquierdo(arbol->derecha);
+                    arbol->cliente.nroCliente = masIzquierdo->cliente.nroCliente;
+                    arbol->derecha = eliminarClienteDeArbol(arbol->derecha, masIzquierdo->cliente.nroCliente);
+                } else {
+                    if (esHoja(arbol) == 1) {
+                        liberarMemoriaDeNodo(arbol);
+                        arbol = nuevoArbol();
+                    }
+                }
+            }
+        } else if (nroCliente > arbol->cliente.nroCliente) {
+            arbol->derecha = eliminarClienteDeArbol(arbol->derecha, nroCliente);
+        } else if (nroCliente < arbol->cliente.nroCliente) {
+            arbol->izquierda = eliminarClienteDeArbol(arbol->izquierda, nroCliente);
+        }
+    }
+    return arbol;
+}
+
+nodoArbol *nodoMasDerecho(nodoArbol *nodo) {
+    if (nodo && nodo->derecha) nodo = nodoMasDerecho(nodo->derecha);
+    return nodo;
+}
+
+nodoArbol *nodoMasIzquierdo(nodoArbol *nodo) {
+    if (nodo && nodo->izquierda) nodo = nodoMasIzquierdo(nodo->izquierda);
+    return nodo;
+}
+
+int esHoja(nodoArbol *nodo) {
+    return !nodo->derecha && !nodo->izquierda;
+}
+
+void liberarMemoriaDeNodo(nodoArbol *nodo) {
+    for (int i = 0; i < nodo->vCuentas; i++) {
+        liberarMemoriaDeCelda(nodo->cuentas[i]);
     }
 }

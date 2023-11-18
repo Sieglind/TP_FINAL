@@ -1,4 +1,4 @@
-int opInicializarCuentas(int vClientes, const int idClientes[vClientes], int cuentas[300]);
+int opInicializarCuentas(int vClientes, const int idClientes[vClientes], int cuentas[]);
 
 //int opGuardarNuevaCuenta(int arrayIdCuenta[], int tipoDecuenta);
 //

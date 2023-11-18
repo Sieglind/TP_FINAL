@@ -9,3 +9,6 @@ celda crearCeldaCuenta(stCuenta cuenta) {
     return celdaCuenta;
 }
 
+void liberarMemoriaDeCelda(celda cuenta) {
+    eliminarLista(cuenta.listaMovimiento);
+}

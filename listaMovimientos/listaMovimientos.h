@@ -11,3 +11,5 @@ nodoLista *nuevaLista();
 nodoLista *nuevoNodoLista(stMovimiento movimiento);
 
 nodoLista *agregarALPrincipio(nodoLista *lista, nodoLista *nodo);
+
+void eliminarLista(nodoLista * lista);

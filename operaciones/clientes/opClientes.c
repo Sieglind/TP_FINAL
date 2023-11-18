@@ -1,9 +1,11 @@
+#include "opClientes.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <ctype.h>
 #include <math.h>
-#include "opClientes.h"
+
 #include "../../utils/gotoxy.h"
 
 #define NOMBRES {"CHRISTIAN","NATALIA","LUCIANO","CRISTIAN","ANA","CORDELIA","ELENA","PEDRO","PABLO","TAMARA",         \
@@ -56,28 +58,15 @@
                     "San Ignacio de Loyola", "Cervantes", "Solis", "Jorge Newbery","San Benito", "Carlos Pellegrini",  \
                     "Calderon de la Barca"}
 
-void generarDni(char dni[10]) {
-    int dniRandom = 0;
-    for (int i = 0; i < 9; i++) {
-        dniRandom += (rand() % 10) * (int) pow(10, i);
-    }
-    sprintf(dni, "%d", dniRandom);
-}
+void generarDni(char dni[10]);
 
-void generarEmail(stCliente *cliente) {
-    char domains[2][8] = {"gmail", "hotmail"};
-    sprintf(cliente->email, "%c.%s@%s.com", tolower(cliente->nombre[0]), strlwr(cliente->apellido),
-            domains[rand() % 2]);
-}
+void generarEmail(stCliente *cliente);
 
-void generarDomicilio(stCliente *cliente) {
-    char calles[130][21] = CALLES;
-    sprintf(cliente->domicilio, "%s , %05d.", calles[rand() % 130], rand() % 10000);
-}
+void generarDomicilio(stCliente *cliente);
 
-void generarTelefono(stCliente *cliente) {
-    sprintf(cliente->telefono, "%d-%d%d", (rand() % 3890) + 10, (rand() % 5) + 1, rand() % 999999);
-}
+void generarTelefono(stCliente *cliente);
+
+double convertirNroCuentaArrayAInt(const int arrayNroCliente[8]);
 
 int opInicializarClientes(int idClientes[50]) {
     stCliente clientes[50];
@@ -102,6 +91,29 @@ int opInicializarClientes(int idClientes[50]) {
         usleep(1000000 / 50);
     }
     return persistirClientesIniciales(50, clientes);
+}
+
+void generarDni(char dni[10]) {
+    int dniRandom = 0;
+    for (int i = 0; i < 9; i++) {
+        dniRandom += (rand() % 10) * (int) pow(10, i);
+    }
+    sprintf(dni, "%d", dniRandom);
+}
+
+void generarEmail(stCliente *cliente) {
+    char domains[2][8] = {"gmail", "hotmail"};
+    sprintf(cliente->email, "%c.%s@%s.com", tolower(cliente->nombre[0]), strlwr(cliente->apellido),
+            domains[rand() % 2]);
+}
+
+void generarDomicilio(stCliente *cliente) {
+    char calles[130][21] = CALLES;
+    sprintf(cliente->domicilio, "%s , %05d.", calles[rand() % 130], rand() % 10000);
+}
+
+void generarTelefono(stCliente *cliente) {
+    sprintf(cliente->telefono, "%d-%d%d", (rand() % 3890) + 10, (rand() % 5) + 1, rand() % 999999);
 }
 
 int opValidarString(const char string[]) {
@@ -156,9 +168,13 @@ int opValidarDireccion(char direccion[]) {
     return validez;
 }
 
-nodoArbol *
-opGuardarNuevoCliente(nodoArbol *arbol, char nombre[], char apellido[], char dni[], char email[], char domicilio[],
-                      char telefono[]) {
+nodoArbol *opGuardarNuevoCliente(nodoArbol *arbol,
+                                 char nombre[],
+                                 char apellido[],
+                                 char dni[],
+                                 char email[],
+                                 char domicilio[],
+                                 char telefono[]) {
     stCliente cliente;
     cliente.id = obtenerNuevoIdCliente(arbol);
     if (cliente.id != -1) {
@@ -176,17 +192,17 @@ opGuardarNuevoCliente(nodoArbol *arbol, char nombre[], char apellido[], char dni
     }
 }
 
+nodoArbol *opBuscarCliente(nodoArbol *arbol, int arrayNroCliente[]) {
+    int nroCliente = (int) convertirNroCuentaArrayAInt(arrayNroCliente);
+    return buscarClienteEnArbol(arbol, nroCliente);
+}
+
 double convertirNroCuentaArrayAInt(const int arrayNroCliente[8]) {
     double intNroCliente = 0;
     for (int i = 0; i <= 7; i++) {
         intNroCliente = intNroCliente + (double) arrayNroCliente[i] * pow(10, 7 - i);
     }
     return intNroCliente;
-}
-
-nodoArbol *opBuscarCliente(nodoArbol *arbol, int arrayNroCliente[]) {
-    int nroCliente = (int) convertirNroCuentaArrayAInt(arrayNroCliente);
-    return buscarClienteEnArbol(arbol, nroCliente);
 }
 
 stResultadoClientes opListarClientes(nodoArbol *arbol) {
@@ -213,7 +229,7 @@ int opActualizarCliente(
     return 4;
 }
 
-//int opBorrarCliente(int arrayNroCliente[]){
-//    int nroCliente =(int) convertirNroCuentaArrayAInt(arrayNroCliente);
-//    return persistirClienteEliminado(nroCliente);
-//}
+nodoArbol *opBorrarCliente(nodoArbol *arbol, int arrayNroCliente[]) {
+    int nroCliente = (int) convertirNroCuentaArrayAInt(arrayNroCliente);
+    return eliminarClienteDeArbol(arbol, nroCliente);
+}
