@@ -23,6 +23,8 @@ int esHoja(nodoArbol *nodo);
 
 void liberarMemoriaDeNodo(nodoArbol *nodo);
 
+void escribirClientesEnArchivo(FILE* archivo,nodoArbol* arbol);
+
 nodoArbol *nuevoArbol() {
     return NULL;
 }
@@ -242,4 +244,20 @@ int verificarClienteExiste(int idClietne){
         encontrado = 500;
     }
     return encontrado;
+}
+
+void arbolToArchivoClientes(nodoArbol *arbol){
+    FILE * archivo= fopen(ARCHIVO_CLIENTES,"wb");
+    if(archivo){
+        escribirClientesEnArchivo(archivo,arbol);
+        fclose(archivo);
+    }
+}
+
+void escribirClientesEnArchivo(FILE* archivo,nodoArbol* arbol){
+    if(arbol){
+        escribirClientesEnArchivo(archivo,arbol->izquierda);
+        fwrite(&(arbol->cliente), sizeof(stCliente),1,archivo);
+        escribirClientesEnArchivo(archivo,arbol->derecha);
+    }
 }

@@ -60,6 +60,7 @@ int menuCuentas() {
                 break;
         }
     }
+    celdaCuentaToArchivo(celdas,vCeldas);
     return 0;
 }
 

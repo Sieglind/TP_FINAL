@@ -30,3 +30,5 @@ stResultadoClientes listarClientes(nodoArbol * arbol);
 nodoArbol * eliminarClienteDeArbol(nodoArbol *arbol, int nroCliente);
 
 int verificarClienteExiste(int idClietne);
+
+void arbolToArchivoClientes(nodoArbol *arbol);

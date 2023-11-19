@@ -50,3 +50,13 @@ void agregarMovimientosACeldas(int cantidadCeldas, celda celdas[]) {
         }
     }
 }
+
+void celdaCuentaToArchivo(celda celdas[],int vCeldas){
+    FILE* archivo= fopen(ARCHIVO_CUENTAS,"wb");
+    if(archivo){
+        for (int i = 0; i < vCeldas; ++i){
+            fwrite(&celdas[i].dato, sizeof(stCuenta),1,archivo);
+        }
+        fclose(archivo);
+    }
+}

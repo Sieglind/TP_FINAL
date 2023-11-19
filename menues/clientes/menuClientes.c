@@ -84,6 +84,7 @@ int menuClientes() {
                 break;
         }
     }
+    arbolToArchivoClientes(arbol);
     return 0;
 }
 

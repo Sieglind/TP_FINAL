@@ -19,4 +19,6 @@ void cargarCuentasEnArreglo(int cantidadCuentas, celda celdas[]);
 
 void extraerCuentasDesdeArchivo(int cantidadCuentas, stCuenta cuentas[]);
 
+void celdaCuentaToArchivo(celda celdas[],int vCeldas);
+
 #endif //TP_FINAL_CELDACUENTA_H
