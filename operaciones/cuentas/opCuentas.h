@@ -8,7 +8,6 @@ int opGuardarNuevaCuenta(int vCeldas, celda celdas[],int arrayIdCuenta[], int ti
 
 stResultadoCuentas opBuscarCuentas(celda celda[],int vCelda,int arrayIdCliente[]);
 
-
-//stResultadoCuentas opListarCuentas();
+stResultadoCuentas opListarCuentas(celda celdas[],int vCuentas);
 
 //int opBorrarCuenta(int arrayIdCliente[]);

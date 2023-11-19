@@ -10,7 +10,6 @@
 #include "../../operaciones/cuentas/opCuentas.h"
 
 
-
 #define BREADCRUM_CREAR         "CUENTAS : Crear    : Ingrese el numero de cliente al que crearle una cuenta      : "
 #define BREADCRUMB_BUSCAR       "CUENTAS : Buscar   : Ingrese el numero de cliente del cual quiere buscar cuentas : "
 #define BREADCRUMB_ELIMINAR     "CUENTAS : Eliminar : Ingrese un numero de cuenta para borrar                     : "
@@ -31,6 +30,8 @@ int menuResultadoCuentas(stResultadoCuentas resultado);
 
 void mostrarPaginaCuentas(stResultadoCuentas resultado, int paginaActual, int paginas);
 
+int menuListarCuentas(celda celdas[], int vCeldas);
+
 int menuCuentas() {
     int opcion = 0;
     int vCeldas = contarCuentasEnArchivo();
@@ -44,14 +45,14 @@ int menuCuentas() {
                 break;
             case 39:
                 vCeldas = menuCrearCuenta(vCeldas, celdas);
-                opcion=0;
+                opcion = 0;
                 break;
-           case 59:
-               opcion = menuBuscarCuentas(celdas,vCeldas);
+            case 59:
+                opcion = menuBuscarCuentas(celdas, vCeldas);
                 break;
-//            case 79:
-//                opcion = menuListarCuentas();
-//                break;
+            case 79:
+                opcion = menuListarCuentas(celdas,vCeldas);
+                break;
 //            case 99:
 //                opcion = menuBorrarCuenta();
 //                break;
@@ -101,7 +102,7 @@ int menuCrearCuenta(int vCeldas, celda celdas[]) {
                 paso = menuIngresarIdCliente(arrayIdCliente, 500, BREADCRUM_CREAR);
                 break;
             case 2:
-                vCeldas= opGuardarNuevaCuenta(vCeldas, celdas, arrayIdCliente, tipoDeCuenta - 48);
+                vCeldas = opGuardarNuevaCuenta(vCeldas, celdas, arrayIdCliente, tipoDeCuenta - 48);
                 gotoxy(33, y);
                 printf("CUENTA CREADA CORRECTAMENTE...");
                 paso = ESCAPE;
@@ -127,6 +128,7 @@ int menuIngresarIdCliente(int arrayNroCliente[8], int status, char breadcrumb[])
     }
     return obtenerId(arrayNroCliente);
 }
+
 int menuBuscarCuentas(celda celdas[], int vCeldas) {
     int arrayIdCliente[8];
     stResultadoCuentas resultado;
@@ -137,7 +139,7 @@ int menuBuscarCuentas(celda celdas[], int vCeldas) {
                 opcion = menuIngresarIdCliente(arrayIdCliente, 200, BREADCRUMB_BUSCAR);
                 break;
             case 1:
-                resultado = opBuscarCuentas(celdas,vCeldas,arrayIdCliente);
+                resultado = opBuscarCuentas(celdas, vCeldas, arrayIdCliente);
                 opcion = resultado.status;
                 break;
             case 200:
@@ -154,6 +156,7 @@ int menuBuscarCuentas(celda celdas[], int vCeldas) {
     }
     return 0;
 }
+
 int menuResultadoCuentas(stResultadoCuentas resultado) {
     int paginas = (resultado.cantidad / 24) + (resultado.cantidad % 24 != 0 ? 1 : 0);
     int paginaActual = 0;
@@ -193,30 +196,27 @@ void mostrarPaginaCuentas(stResultadoCuentas resultado, int paginaActual, int pa
     }
 }
 
+int menuListarCuentas(celda celdas[], int vCeldas) {
+    stResultadoCuentas resultado = opListarCuentas(celdas,vCeldas);
+    switch (resultado.status) {
+        case 200:
+            menuResultadoCuentas(resultado);
+            free(resultado.resultados);
+            break;
+        case 404:
+            gotoxy(23, 3);
+            printf("%-80s", "No se encontraron registros");
+            getch();
+            break;
+        case 500:
+            gotoxy(23, 3);
+            printf("%-80s", "Error desconocido");
+            getch();
+            break;
+    }
+    return 0;
+}
 
-
-//
-//int menuListarCuentas() {
-//    stResultadoCuentas resultado = opListarCuentas();
-//    switch (resultado.status) {
-//        case 200:
-//            menuResultadoCuentas(resultado);
-//            free(resultado.resultados);
-//            break;
-//        case 404:
-//            gotoxy(23, 3);
-//            printf("%-80s", "No se encontraron registros");
-//            getch();
-//            break;
-//        case 500:
-//            gotoxy(23, 3);
-//            printf("%-80s", "Error desconocido");
-//            getch();
-//            break;
-//    }
-//    return 0;
-//}
-//
 //int menuBorrarCuenta() {
 //    int arrayNroCuenta[8];
 //    int opcion = 0;
