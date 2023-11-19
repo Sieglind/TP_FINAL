@@ -10,4 +10,4 @@ stResultadoCuentas opBuscarCuentas(celda celda[],int vCelda,int arrayIdCliente[]
 
 stResultadoCuentas opListarCuentas(celda celdas[],int vCuentas);
 
-//int opBorrarCuenta(int arrayIdCliente[]);
+int opBorrarCuenta(celda celdas[],int * vCeldas, int arrayNroCuenta[]);

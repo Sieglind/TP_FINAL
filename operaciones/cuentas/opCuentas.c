@@ -106,7 +106,21 @@ stResultadoCuentas opListarCuentas(celda celdas[], int vCeldas) {
     return resultado;
 }
 
-//int opBorrarCuenta(int arrayNroCuenta[]){
-//    int nroCuenta =(int) convertirIdClienteArrayAInt(arrayNroCuenta);
-//    return persistirCuentaEliminada(nroCuenta);
-//}
+int opBorrarCuenta(celda celdas[], int *vCeldas, int arrayNroCuenta[]) {
+    int nroCuenta = convertirArrayEnId(arrayNroCuenta);
+    int posicion = 0;
+    int retorno = 404;
+    while (posicion < *vCeldas && celdas[posicion].dato.nroCuenta != nroCuenta) {
+        posicion++;
+    }
+    if (posicion != *vCeldas) {
+        eliminarLista(celdas[posicion].listaMovimiento);
+        for (int j = posicion; j < (*vCeldas) - 1; j++) {
+            celdas[posicion] = celdas[posicion + 1];
+        }
+        *vCeldas = *vCeldas - 1;
+        retorno = 200;
+    }
+    return retorno;
+}
+

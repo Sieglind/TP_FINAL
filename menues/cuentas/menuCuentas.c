@@ -32,6 +32,8 @@ void mostrarPaginaCuentas(stResultadoCuentas resultado, int paginaActual, int pa
 
 int menuListarCuentas(celda celdas[], int vCeldas);
 
+int menuBorrarCuenta(celda celda[], int vCelda);
+
 int menuCuentas() {
     int opcion = 0;
     int vCeldas = contarCuentasEnArchivo();
@@ -51,11 +53,11 @@ int menuCuentas() {
                 opcion = menuBuscarCuentas(celdas, vCeldas);
                 break;
             case 79:
-                opcion = menuListarCuentas(celdas,vCeldas);
+                opcion = menuListarCuentas(celdas, vCeldas);
                 break;
-//            case 99:
-//                opcion = menuBorrarCuenta();
-//                break;
+            case 99:
+                opcion = menuBorrarCuenta(celdas,vCeldas);
+                break;
         }
     }
     return 0;
@@ -197,7 +199,7 @@ void mostrarPaginaCuentas(stResultadoCuentas resultado, int paginaActual, int pa
 }
 
 int menuListarCuentas(celda celdas[], int vCeldas) {
-    stResultadoCuentas resultado = opListarCuentas(celdas,vCeldas);
+    stResultadoCuentas resultado = opListarCuentas(celdas, vCeldas);
     switch (resultado.status) {
         case 200:
             menuResultadoCuentas(resultado);
@@ -217,30 +219,30 @@ int menuListarCuentas(celda celdas[], int vCeldas) {
     return 0;
 }
 
-//int menuBorrarCuenta() {
-//    int arrayNroCuenta[8];
-//    int opcion = 0;
-//    while (opcion != ESCAPE) {
-//        switch (opcion) {
-//            case 0:
-//                opcion = menuIngresarIdCliente(arrayNroCuenta, 200, BREADCRUMB_ELIMINAR);
-//                break;
-//            case 1:
-//                opcion = opBorrarCuenta(arrayNroCuenta);
-//                break;
-//            case 200:
-//                gotoxy(25, 3);
-//                printf("%-80s", "Cuenta correctamente eliminada.");
-//                opcion = 0;
-//                getch();
-//                break;
-//            case 404:
-//                opcion = menuIngresarIdCliente(arrayNroCuenta, 404, BREADCRUMB_ELIMINAR);
-//                break;
+int menuBorrarCuenta(celda celda[], int vCelda) {
+    int arrayNroCuenta[8];
+    int opcion = 0;
+    while (opcion != ESCAPE) {
+        switch (opcion) {
+            case 0:
+                opcion = menuIngresarIdCliente(arrayNroCuenta, 200, BREADCRUMB_ELIMINAR);
+                break;
+            case 1:
+                opcion = opBorrarCuenta(celda, &vCelda, arrayNroCuenta);
+                break;
+            case 200:
+                gotoxy(25, 3);
+                printf("%-80s", "Cuenta correctamente eliminada.");
+                opcion = 0;
+                getch();
+                break;
+            case 404:
+                opcion = menuIngresarIdCliente(arrayNroCuenta, 404, BREADCRUMB_ELIMINAR);
+                break;
 //            case 500:
 //                opcion = menuIngresarIdCliente(arrayNroCuenta, 500, BREADCRUMB_ELIMINAR);
 //                break;
-//        }
-//    }
-//    return 0;
-//}
+        }
+    }
+    return 0;
+}
