@@ -56,7 +56,7 @@ int menuCuentas() {
                 opcion = menuListarCuentas(celdas, vCeldas);
                 break;
             case 99:
-                opcion = menuBorrarCuenta(celdas,vCeldas);
+                opcion = menuBorrarCuenta(celdas, vCeldas);
                 break;
         }
     }

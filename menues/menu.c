@@ -22,9 +22,9 @@ void menuPrincipal() {
             case 38:
                 opcion = menuCuentas();
                 break;
-//            case 79:
-//                opcion = menuMovimientos();
-//                break;
+            case 79:
+                opcion = menuMovimientos();
+                break;
             case 99:
                 opcion = menuOtros();
         }

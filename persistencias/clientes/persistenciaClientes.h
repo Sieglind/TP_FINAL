@@ -1,8 +1,5 @@
 #define ARCHIVO_CLIENTES "clientes.dat"
 #define ID_INICIAL_CLIENTES 30000000
-#define STATUS_OK 200
-#define STATUS_NO_ENCONTRADO 404
-#define STATUS_ERROR 500
 
 typedef struct {
     int id;

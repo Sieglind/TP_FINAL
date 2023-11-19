@@ -1,7 +1,3 @@
-//
-// Created by moral on 18/11/2023.
-//
-
 #ifndef TP_FINAL_PERSISTENCIACUENTAS_H
 #define TP_FINAL_PERSISTENCIACUENTAS_H
 
@@ -9,9 +5,6 @@
 
 #define ARCHIVO_CUENTAS "cuentas.dat"
 #define ID_INICIAL_CUENTAS 60000000
-#define STATUS_OK 200
-#define STATUS_NO_ENCONTRADO 404
-#define STATUS_ERROR 500
 
 typedef struct {
     int id;
@@ -29,17 +22,5 @@ typedef struct {
 } stResultadoCuentas;
 
 int persistirCuentasIniciales(int vCuentas,stCuenta cuentas[vCuentas]);
-
-//int obtenerNuevoIdCuenta();
-//
-//int persistirCuentaNueva(stCuenta cuenta);
-//
-//int implementarBusquedaPorCliente(FILE *archivo,int idCliente,stCuenta *cuentas);
-//
-//stResultadoCuentas buscarCuentasPorIdCliente(int idCliente);
-//
-//stResultadoCuentas listarCuentas();
-//
-//int persistirCuentaEliminada(int idCliente);
 
 #endif //TP_FINAL_PERSISTENCIACUENTAS_H

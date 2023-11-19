@@ -4,9 +4,14 @@
 #include "../../persistencias/movimientos/persistenciaMovimientos.h"
 #include "opMovimientos.h"
 #include "../../utils/gotoxy.h"
+#include "../../utils/utils.h"
 
 #define DETALLES_POSITIVOS {"DEPOSITO EFECTIVO", "DEPOSITO CHEQUE", "TRANSFERENCIA RECIBIDA", "PAGO RECIBIDO", "INGRESO SALARIO", "INTERESES INVERSIONES", "DEPOSITO PLAZO FIJO", "INTERESES BONOS", "REEMBOLSO", "DEVOLUCION", "TRANSFERENCIA CUENTAS PROPIAS", "BONIFICACION"}
 #define DETALLES_NEGATIVOS {"RETIRO EN EFECTIVO", "PAGO DE SEGURO HOGAR", "PAGO DE SEGURO AUTOMOTOR", "DEBITO AUTOMATICO DE TARJETA DE CREDITO", "PAGO CON TARJETA DE DEBITO", "TRANSFERENCIA A OTRA CUENTA", "PAGO DE CHEQUE EMITIDO", "PERDIDA POR INVERSIONES", "COMPRA DE MONEDA EXTRANJERA", "GASTOS POR MANTENIMIENTO DE CUENTA", "PAGO SEGURO DE VIDA", "DEBITO AUTOMATICO DE SERVICIO"}
+
+int contarMovimientosEnLista(nodoLista *movimientos, int idCuenta);
+
+int cargarResultadosEnArreglo(nodoLista *movimientos, stMovimiento *resultados, int idCuenta);
 
 int opInicializarMovimientos(int cantidadCuentas, int cuentas[cantidadCuentas]) {
     int dias[] = {31, 28, 31, 30, 31};
@@ -45,15 +50,39 @@ int opInicializarMovimientos(int cantidadCuentas, int cuentas[cantidadCuentas]) 
     return persistirMovimientosIniciales(vMovimientos, movimientos);
 }
 
-//double convertirIdArrayAInt(const int idCuenta[8]) {
-//    double intIdCuenta = 0;
-//    for (int i = 0; i<=7; i++) {
-//        intIdCuenta = intIdCuenta + (double)idCuenta[i]*pow(10,7-i);
-//    }
-//    return intIdCuenta;
-//}
-//
-//stResultadoMovimientos opBuscarMovimientosPorCuenta(int arrayIdCuenta[8]) {
-//    int idCuenta =(int) convertirIdArrayAInt(arrayIdCuenta);
-//    return buscarMovimientosPorCuenta(idCuenta);
-//}
+stResultadoMovimientos opBuscarMovimientosPorCuenta(nodoLista *movimientos, int arrayIdCuenta[8]) {
+    int idCuenta = convertirArrayEnId(arrayIdCuenta);
+    int encontrados = contarMovimientosEnLista(movimientos, idCuenta);
+    stResultadoMovimientos resultado;
+    if (encontrados != 0) {
+        stMovimiento *resultados = (stMovimiento *) malloc(sizeof(stMovimiento) * encontrados);
+        cargarResultadosEnArreglo(movimientos, resultados, idCuenta);
+        resultado.resultados = resultados;
+        resultado.cantidad = encontrados;
+        resultado.status = 200;
+    } else {
+        resultado.status = 404;
+    }
+    return resultado;
+}
+
+int contarMovimientosEnLista(nodoLista *movimientos, int idCuenta) {
+    int cantidad = 0;
+    while (movimientos) {
+        if (movimientos->movimiento.idCuenta == idCuenta) cantidad++;
+        movimientos = movimientos->siguiente;
+    }
+    return cantidad;
+}
+
+int cargarResultadosEnArreglo(nodoLista *movimientos, stMovimiento *resultados, int idCuenta) {
+    int posicion = 0;
+    if (movimientos) {
+        posicion = posicion + cargarResultadosEnArreglo(movimientos->siguiente, resultados, idCuenta);
+        if (movimientos->movimiento.idCuenta == idCuenta) {
+            resultados[posicion] = movimientos->movimiento;
+            posicion++;
+        }
+    }
+    return posicion;
+}

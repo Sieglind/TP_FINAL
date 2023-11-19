@@ -17,11 +17,11 @@ nodoLista *agregarALPrincipio(nodoLista *lista, nodoLista *nodo) {
     return nodo;
 }
 
-int contarMovimientosEnArchivo(){
+int contarMovimientosEnArchivo() {
     return calcularCantidadDeEstructuras(ARCHIVO_MOVIMIENTOS, sizeof(stMovimiento));
 }
 
-void extraerMovimientosDesdeArchivo(int cantidadMovimientos, stMovimiento movimientos[]){
+void extraerMovimientosDesdeArchivo(int cantidadMovimientos, stMovimiento movimientos[]) {
     FILE *archivoMovimientos = fopen(ARCHIVO_MOVIMIENTOS, "rb");
     if (archivoMovimientos) {
         fread(movimientos, sizeof(stMovimiento), cantidadMovimientos, archivoMovimientos);
@@ -29,10 +29,22 @@ void extraerMovimientosDesdeArchivo(int cantidadMovimientos, stMovimiento movimi
     }
 }
 
-void eliminarLista(nodoLista * lista){
-    if(lista && lista->siguiente){
+void eliminarLista(nodoLista *lista) {
+    if (lista && lista->siguiente) {
         eliminarLista(lista->siguiente);
     } else {
         free(lista);
     }
+}
+
+nodoLista *cargarMovimientosEnLista(nodoLista *movimientos) {
+    FILE *archivoMovimientos = fopen(ARCHIVO_MOVIMIENTOS, "rb");
+    if (archivoMovimientos) {
+        stMovimiento movimiento;
+        while (fread(&movimiento, sizeof(stMovimiento), 1, archivoMovimientos)) {
+            movimientos = agregarALPrincipio(movimientos, nuevoNodoLista(movimiento));
+        }
+        fclose(archivoMovimientos);
+    }
+    return movimientos;
 }

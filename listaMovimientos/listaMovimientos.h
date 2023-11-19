@@ -21,4 +21,6 @@ void extraerMovimientosDesdeArchivo(int cantidadMovimientos, stMovimiento movimi
 
 void eliminarLista(nodoLista * lista);
 
+nodoLista * cargarMovimientosEnLista(nodoLista * movimientos);
+
 #endif //TP_FINAL_LISTAMOVIMIENTOS_H
