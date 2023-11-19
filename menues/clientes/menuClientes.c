@@ -37,7 +37,11 @@ int menuIngresarNroCliente(int arrayNroCliente[], int status, char breadcrumb[])
 
 int obtenerNroCliente(int arrayNroCliente[]);
 
-int mostrarResultadoCliente(stCliente cliente, int x);
+int mostrarCuentas(nodoArbol *arbol);
+
+void mostrarMovimientos(nodoLista * lista);
+
+int mostrarResultadoCliente(nodoArbol * nodo, int x,int esActualizacion);
 
 int menuListarClientes(nodoArbol *arbol);
 
@@ -226,7 +230,7 @@ int menuBuscarCliente(nodoArbol *arbol) {
                 }
                 break;
             case 200:
-                opcion = mostrarResultadoCliente(resultado->cliente, 33);
+                opcion = mostrarResultadoCliente(resultado, 33,0);
                 break;
             case 404:
                 opcion = menuIngresarNroCliente(arrayNroCliente, 404, BREADCRUMB_BUSCAR);
@@ -268,21 +272,77 @@ int obtenerNroCliente(int arrayNroCliente[]) {
     return 1;
 }
 
-int mostrarResultadoCliente(stCliente cliente, int x) {
+int mostrarCuentas(nodoArbol *arbol) {
+    cargarMenuClientes();
+    int renglon = 5;
+    char tipoDeCuenta[3][27] = {"Caja de ahorro en pesos.", "Caja de ahorro en dolares.", "Cuenta corriente en pesos."};
+    for (int i = 0; i < arbol->vCuentas; i++) {
+        gotoxy(2, renglon++);
+        printf("Nro. de CLiente: %d | Nro. de Cuenta: %d | Tipo: %-26s | Mantenimiento: $%.2f",
+               arbol->cuentas[i].dato.idCliente,
+               arbol->cuentas[i].dato.nroCuenta,
+               tipoDeCuenta[arbol->cuentas[i].dato.tipoDeCuenta-1],
+               arbol->cuentas[i].dato.costoMensual);
+    }
+    gotoxy(2,20);
+    printf("Ingrese un numero entre 1 y %d para ver los movimientos de la cuenta",arbol->vCuentas);
+    fflush(stdin);
+    int opcion = getch()-48;
+    if(0 < opcion && opcion <= arbol->vCuentas){
+        mostrarMovimientos(arbol->cuentas[opcion-1].listaMovimiento);
+    }
+    return 0;
+}
+
+void mostrarMovimientos(nodoLista * lista){
+    cargarMenuClientes();
+    int renglon = 5;
+    gotoxy(2,renglon);
+    while (lista && renglon <20 ){
+        gotoxy(2, renglon++);
+        printf("Fecha: %02d/%02d/%d                                ",
+               lista->movimiento.dia,
+               lista->movimiento.mes,
+               lista->movimiento.anio);
+        gotoxy(2, renglon++);
+        printf("Detalle %-100s",
+               lista->movimiento.detalle);
+        gotoxy(2, renglon++);
+        printf("Importe: %d", (int) lista->movimiento.importe);
+        lista = lista->siguiente;
+    }
+    if(lista && lista->siguiente){
+        gotoxy(2,22);
+        printf("Mostrar mas: m");
+        int opcion = getch();
+        if (opcion == 109){
+            mostrarMovimientos(lista);
+        }
+    }
+}
+
+int mostrarResultadoCliente(nodoArbol * nodo, int x,int esActualizacion) {
     gotoxy(x, 12);
-    printf("NRO. DE CLIENTE: %-10d", cliente.nroCliente);
+    printf("NRO. DE CLIENTE: %-10d", nodo->cliente.nroCliente);
     gotoxy(x, whereY() + 1);
-    printf("NOMBRE: %-29s", cliente.nombre);
+    printf("NOMBRE: %-29s", nodo->cliente.nombre);
     gotoxy(x, whereY() + 1);
-    printf("APELLIDO: %-29s", cliente.apellido);
+    printf("APELLIDO: %-29s", nodo->cliente.apellido);
     gotoxy(x, whereY() + 1);
-    printf("DNI: %-29s", cliente.dni);
+    printf("DNI: %-29s", nodo->cliente.dni);
     gotoxy(x, whereY() + 1);
-    printf("EMAIL: %-30s", cliente.email);
+    printf("EMAIL: %-30s", nodo->cliente.email);
     gotoxy(x, whereY() + 1);
-    printf("DOMICILIO: %-45s", cliente.domicilio);
+    printf("DOMICILIO: %-45s", nodo->cliente.domicilio);
     gotoxy(x, whereY() + 1);
-    printf("TELEFONO: %-12s", cliente.telefono);
+    printf("TELEFONO: %-12s", nodo->cliente.telefono);
+    if(!esActualizacion){
+        gotoxy(x, whereY() + 2);
+        printf("Mostrar Cuentas: C");
+        fflush(stdin);
+        int opcion = getch();
+        if (opcion == 99) mostrarCuentas(nodo);
+    }
     return 0;
 }
 
@@ -371,7 +431,7 @@ int menuActualizarCliente(nodoArbol *arbol) {
                 }
                 break;
             case 200:
-                mostrarResultadoCliente(cliente, 2);
+                mostrarResultadoCliente(resultado, 2,1);
                 opcion = menuIngresarCliente(nombre, apellido, dni, email, domicilio, telefono, 60, 13, 3);
                 break;
             case 404:
